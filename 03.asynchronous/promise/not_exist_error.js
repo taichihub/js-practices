@@ -1,4 +1,4 @@
-import { run, all, close } from "./db.js";
+import { run, all, close } from "../db.js";
 
 run(
   `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
