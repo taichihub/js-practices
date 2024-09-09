@@ -1,18 +1,18 @@
 import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database(":memory:", () => {
-  console.log("メモリ内のSQLiteデータベースに接続しました。");
+  process.stdout.write("メモリ内のSQLiteデータベースに接続しました。\n");
 });
 
 db.run(
   `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
   (err) => {
     if (err) {
-      return console.error(
-        `テーブル作成時にエラーが発生しました: ${err.message}`,
+      return process.stderr.write(
+        `テーブル作成時にエラーが発生しました: ${err.message}\n`,
       );
     }
-    console.log("テーブルが作成されました。");
+    process.stdout.write("テーブルが作成されました。\n");
 
     db.run(
       `INSERT INTO books (title) VALUES (?)`,
@@ -20,22 +20,22 @@ db.run(
       db.run(`INSERT INTO books (title) VALUES (?)`, ["Node.js入門"]),
       function (err) {
         if (err) {
-          return console.error(
-            `データ挿入時にエラーが発生しました: ${err.message}`,
+          return process.stderr.write(
+            `データ挿入時にエラーが発生しました: ${err.message}\n`,
           );
         }
-        console.log(`行が追加されました。id: ${this.lastID}`);
+        process.stdout.write(`行が追加されました。id: ${this.lastID}\n`);
 
         db.all(`SELECT id, title FROM books`, [], (err, rows) => {
           rows.forEach((row) => {
-            console.log(`${row.id}: ${row.title}`);
+            process.stdout.write(`${row.id}: ${row.title}\n`);
           });
 
           db.run(`DROP TABLE books`, () => {
-            console.log("テーブルが削除されました。");
+            process.stdout.write("テーブルが削除されました。\n");
 
             db.close(() => {
-              console.log("データベース接続を閉じました。");
+              process.stdout.write("データベース接続を閉じました。\n");
             });
           });
         });

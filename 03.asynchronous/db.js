@@ -28,5 +28,5 @@ export function all(sql, params = []) {
 
 export function close() {
   db.close();
-  console.log("データベース接続を閉じました。");
+  process.stdout.write("データベース接続を閉じました。\n");
 }
