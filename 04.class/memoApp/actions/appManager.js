@@ -3,7 +3,7 @@ import { listMemos } from "./listMemos.js";
 import { readMemo } from "./readMemo.js";
 import { deleteMemo } from "./deleteMemo.js";
 
-class MemoApp {
+export class MemoApp {
   constructor(database) {
     this.db = database.getDb();
   }
@@ -24,5 +24,3 @@ class MemoApp {
     deleteMemo(this.db);
   }
 }
-
-export default MemoApp;

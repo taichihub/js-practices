@@ -1,5 +1,5 @@
 import { Database } from "./db/database.js";
-import MemoApp from "./actions/appManager.js";
+import { MemoApp } from "./actions/appManager.js";
 import { OPTIONS } from "./config/settings.js";
 
 const database = new Database();
