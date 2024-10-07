@@ -10,5 +10,10 @@
     "globals": "^15.9.0",
     "prettier": "^3.3.3"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "inquirer": "^10.2.2",
+    "readline-sync": "^1.4.10",
+    "sqlite3": "^5.1.7"
+  }
 }
