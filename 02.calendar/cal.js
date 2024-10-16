@@ -25,9 +25,11 @@ function printCalendar(year, month) {
   process.stdout.write(padding);
 
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
-    process.stdout.write(day.day.toString().padStart(2) + " ");
-    if (day.weekday === 6) {
-      process.stdout.write("\n");
+    const formattedDay = `${day.day.toString().padStart(2)} `;
+    if (day.weekday === 6 || lastDay.daysInMonth === day.day) {
+      console.log(formattedDay.slice(0, -1));
+    } else {
+      process.stdout.write(formattedDay);
     }
   }
 
