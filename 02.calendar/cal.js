@@ -48,8 +48,9 @@ function main() {
     .parse(process.argv);
 
   const options = program.opts();
-  const year = options.year || DateTime.now().year;
-  const month = options.month || DateTime.now().month;
+  const now = DateTime.now();
+  const year = options.year || now.year;
+  const month = options.month || now.month;
 
   try {
     printCalendar(year, month);
