@@ -18,19 +18,14 @@ db.run(
             if (err) {
               process.stderr.write(`エラーが発生しました: ${err.message}\n`);
 
-              db.close(() => {
-                process.stdout.write("データベース接続を閉じました。\n");
-                return;
-              });
-            } else {
-              process.stdout.write(`行が追加されました。id: ${this.lastID}\n`);
+              db.all("SELECT * FROM books WHERE id = -1", [], (_, rows) => {
+                if (rows.length === 0) {
+                  process.stderr.write(
+                    "エラーが発生しました: レコードが存在しません\n",
+                  );
+                }
 
-              db.all(`SELECT id, title FROM books`, [], (err, rows) => {
-                rows.forEach((row) => {
-                  process.stdout.write(`${row.id}: ${row.title}\n`);
-                });
-
-                db.run(`DROP TABLE books`, () => {
+                db.run("DROP TABLE books", () => {
                   process.stdout.write("テーブルが削除されました。\n");
 
                   db.close(() => {
