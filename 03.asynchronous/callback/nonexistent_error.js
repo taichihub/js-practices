@@ -11,7 +11,7 @@ db.run(
       function () {
         process.stdout.write(`行が追加されました。id: ${this.lastID}\n`);
 
-        db.all(`SELECT id, title FROM books`, [], (err, rows) => {
+        db.all(`SELECT * FROM books`, [], (_, rows) => {
           rows.forEach((row) => {
             process.stdout.write(`${row.id}: ${row.title}\n`);
           });
