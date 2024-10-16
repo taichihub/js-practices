@@ -14,7 +14,11 @@ function printCalendar(year, month) {
   const firstDay = DateTime.local(year, month, 1);
   const lastDay = firstDay.endOf("month");
 
-  console.log(firstDay.toFormat("M月 yyyy").padStart(13));
+  if (month.toString().length == 2) {
+    console.log(firstDay.toFormat("M月 yyyy").padStart(14));
+  } else {
+    console.log(firstDay.toFormat("M月 yyyy").padStart(13));
+  }
   console.log("日 月 火 水 木 金 土");
 
   let padding = " ".repeat((firstDay.weekday % 7) * 3);
