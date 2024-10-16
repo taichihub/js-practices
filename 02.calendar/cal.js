@@ -52,13 +52,7 @@ function main() {
   const year = options.year || now.year;
   const month = options.month || now.month;
 
-  try {
-    printCalendar(year, month);
-  } catch (error) {
-    process.stderr.write(
-      "無効な日付が指定されました。詳細: " + error.message + "\n",
-    );
-  }
+  printCalendar(year, month);
 }
 
 main();
