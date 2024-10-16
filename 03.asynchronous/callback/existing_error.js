@@ -1,18 +1,18 @@
 import { db } from "../db.js";
 
 db.run(
-  `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   () => {
     process.stdout.write("テーブルが作成されました。\n");
 
     db.run(
-      `INSERT INTO books (title) VALUES (?)`,
+      "INSERT INTO books (title) VALUES (?)",
       ["Node.js入門"],
       function () {
         process.stdout.write(`行が追加されました。id: ${this.lastID}\n`);
 
         db.run(
-          `INSERT INTO books (title) VALUES (?)`,
+          "INSERT INTO books (title) VALUES (?)",
           ["Node.js入門"],
           function (err) {
             if (err) {
