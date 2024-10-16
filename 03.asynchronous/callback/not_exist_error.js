@@ -1,8 +1,4 @@
-import sqlite3 from "sqlite3";
-
-const db = new sqlite3.Database(":memory:", () => {
-  process.stdout.write("メモリ内のSQLiteデータベースに接続しました。\n");
-});
+import { db } from "../db.js";
 
 db.run(
   `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
