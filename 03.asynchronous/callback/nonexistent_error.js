@@ -1,7 +1,7 @@
 import { db } from "../db.js";
 
 db.run(
-  `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
+  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   () => {
     process.stdout.write("テーブルが作成されました。\n");
 
