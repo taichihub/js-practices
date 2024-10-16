@@ -3,15 +3,6 @@
 import { Command } from "commander";
 import { DateTime } from "luxon";
 
-const program = new Command();
-
-program
-  .option("-y, --year <year>", "年を指定", parseInt)
-  .option("-m, --month <month>", "月を指定", parseInt)
-  .parse(process.argv);
-
-const options = program.opts();
-
 function printCalendar(year, month) {
   if (
     !year ||
@@ -49,6 +40,14 @@ function printCalendar(year, month) {
 }
 
 function main() {
+  const program = new Command();
+
+  program
+    .option("-y, --year <year>", "年を指定", parseInt)
+    .option("-m, --month <month>", "月を指定", parseInt)
+    .parse(process.argv);
+
+  const options = program.opts();
   const year = options.year || DateTime.now().year;
   const month = options.month || DateTime.now().month;
 
