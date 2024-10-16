@@ -1,6 +1,8 @@
 import sqlite3 from "sqlite3";
 
-export const db = new sqlite3.Database(":memory:");
+export const db = new sqlite3.Database(":memory:", () => {
+  process.stdout.write("メモリ内のSQLiteデータベースに接続しました。\n");
+});
 
 export function run(sql, params = []) {
   return new Promise((resolve, reject) => {
