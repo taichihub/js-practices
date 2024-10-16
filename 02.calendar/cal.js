@@ -34,7 +34,7 @@ function printCalendar(year, month) {
   }
 
   if (lastDay.weekday !== 6) {
-    process.stdout.write("\n");
+    console.log();
   }
 }
 
