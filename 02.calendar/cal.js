@@ -5,8 +5,8 @@ import { DateTime } from "luxon";
 
 function printCalendar(year, month) {
   if (year < 1900 || year > 2100 || month < 1 || month > 12) {
-    process.stderr.write(
-      "指定された年または月が無効です。(年:1900〜2100,月:1〜12が有効)\n",
+    console.error(
+      "指定された年または月が無効です。(年:1900〜2100,月:1〜12が有効)",
     );
     return;
   }
