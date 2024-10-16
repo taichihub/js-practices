@@ -21,7 +21,7 @@ function printCalendar(year, month) {
   }
   console.log("日 月 火 水 木 金 土");
 
-  let padding = " ".repeat((firstDay.weekday % 7) * 3);
+  const padding = " ".repeat((firstDay.weekday % 7) * 3);
   process.stdout.write(padding);
 
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
