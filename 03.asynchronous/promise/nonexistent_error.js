@@ -20,9 +20,6 @@ run(
   .then(() => {
     console.log("テーブルが削除されました。");
   })
-  .catch((err) => {
-    console.error(`エラーが発生しました: ${err.message}`);
-  })
   .finally(() => {
     close();
   });
