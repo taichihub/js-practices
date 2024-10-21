@@ -4,24 +4,24 @@ run(
   `CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)`,
 )
   .then(() => {
-    process.stdout.write("テーブルが作成されました。\n");
+    console.log("テーブルが作成されました。");
     return run(`INSERT INTO books (title) VALUES (?)`, ["Node.js入門"]);
   })
   .then((result) => {
-    process.stdout.write(`行が追加されました。id: ${result.lastID}\n`);
+    console.log(`行が追加されました。id: ${result.lastID}`);
     return all(`SELECT id, title FROM books`);
   })
   .then((rows) => {
     rows.forEach((row) => {
-      process.stdout.write(`${row.id}: ${row.title}\n`);
+      console.log(`${row.id}: ${row.title}`);
     });
     return run(`DROP TABLE books`);
   })
   .then(() => {
-    process.stdout.write("テーブルが削除されました。\n");
+    console.log("テーブルが削除されました。");
   })
   .catch((err) => {
-    process.stderr.write(`エラーが発生しました: ${err.message}\n`);
+    console.error(`エラーが発生しました: ${err.message}`);
   })
   .finally(() => {
     close();
