@@ -1,4 +1,4 @@
-import { run, all, close } from "../db.js";
+import { run, close } from "../db.js";
 
 async function manageBooks() {
   try {
@@ -16,16 +16,15 @@ async function manageBooks() {
       "Node.js入門",
     ]);
     console.log(`行が追加されました。id: ${result2.lastID}`);
-
-    const rows = await all("SELECT * FROM books");
-    rows.forEach((row) => {
-      console.log(`${row.id}: ${row.title}`);
-    });
-
-    await run("DROP TABLE books");
-    console.log("テーブルが削除されました。");
   } catch (err) {
     console.error(`エラーが発生しました: ${err.message}`);
+    try {
+      await run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
+    } catch {
+      console.error("エラーが発生しました: レコードが存在しません");
+    }
+    await run("DROP TABLE books");
+    console.log("テーブルが削除されました。");
   } finally {
     close();
   }
