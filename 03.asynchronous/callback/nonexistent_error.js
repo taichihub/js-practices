@@ -3,24 +3,24 @@ import { db } from "../db.js";
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   () => {
-    process.stdout.write("テーブルが作成されました。\n");
+    console.log("テーブルが作成されました。");
 
     db.run(
       "INSERT INTO books (title) VALUES (?)",
       ["Node.js入門"],
       function () {
-        process.stdout.write(`行が追加されました。id: ${this.lastID}\n`);
+        console.log(`行が追加されました。id: ${this.lastID}`);
 
         db.all("SELECT * FROM books", [], (_, rows) => {
           rows.forEach((row) => {
-            process.stdout.write(`${row.id}: ${row.title}\n`);
+            console.log(`${row.id}: ${row.title}`);
           });
 
           db.run("DROP TABLE books", () => {
-            process.stdout.write("テーブルが削除されました。\n");
+            console.log("テーブルが削除されました。");
 
             db.close(() => {
-              process.stdout.write("データベース接続を閉じました。\n");
+              console.log("データベース接続を閉じました。");
             });
           });
         });
