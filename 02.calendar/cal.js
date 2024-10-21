@@ -13,12 +13,14 @@ function printCalendar(year, month) {
 
   const firstDay = DateTime.local(year, month, 1);
   const lastDay = firstDay.endOf("month");
+  const marginAfterOctober = 9;
+  const marginBeforeOctober = 8;
+  const headerYear = `${year}`;
+  const headerMonth = `${month}月`.padStart(
+    month.toString().length == 2 ? marginAfterOctober : marginBeforeOctober,
+  );
 
-  if (month.toString().length == 2) {
-    console.log(firstDay.toFormat("M月 yyyy").padStart(14));
-  } else {
-    console.log(firstDay.toFormat("M月 yyyy").padStart(13));
-  }
+  console.log(`${headerMonth} ${headerYear}`);
   console.log("日 月 火 水 木 金 土");
 
   const padding = " ".repeat((firstDay.weekday % 7) * 3);
