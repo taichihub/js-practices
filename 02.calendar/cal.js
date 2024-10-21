@@ -8,7 +8,7 @@ function printCalendar(year, month) {
     console.error(
       "指定された年または月が無効です。(年:1900〜2100,月:1〜12が有効)",
     );
-    return;
+    process.exit(1);
   }
 
   const firstDay = DateTime.local(year, month, 1);
