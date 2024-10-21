@@ -48,8 +48,8 @@ function main() {
 
   const options = program.opts();
   const now = DateTime.now();
-  const year = options.year || now.year;
-  const month = options.month || now.month;
+  const year = options.year ?? now.year;
+  const month = options.month ?? now.month;
 
   printCalendar(year, month);
 }
