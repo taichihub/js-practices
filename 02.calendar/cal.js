@@ -28,7 +28,7 @@ function printCalendar(year, month) {
   process.stdout.write(padding);
 
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
-    let formattedDay = `${day.day.toString().padStart(marginBetweenDay)}`;
+    let formattedDay = day.day.toString().padStart(marginBetweenDay);
 
     if (day.weekday === 6 || day.hasSame(lastDay, "day")) {
       console.log(formattedDay);
