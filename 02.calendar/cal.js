@@ -11,11 +11,8 @@ function printCalendar(year, month) {
     process.exit(1);
   }
 
-  const firstDay = DateTime.local(year, month, 1);
-  const lastDay = firstDay.endOf("month");
   const marginAfterOctober = 9;
   const marginBeforeOctober = 8;
-  const marginBetweenDay = 2;
   const headerYear = `${year}`;
   const headerMonth = `${month}月`.padStart(
     month.toString().length == 2 ? marginAfterOctober : marginBeforeOctober,
@@ -24,10 +21,14 @@ function printCalendar(year, month) {
   console.log(`${headerMonth} ${headerYear}`);
   console.log("日 月 火 水 木 金 土");
 
+  const firstDay = DateTime.local(year, month, 1);
   const padding = " ".repeat((firstDay.weekday % 7) * 3);
   process.stdout.write(padding);
 
+  const lastDay = firstDay.endOf("month");
+
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
+    let marginBetweenDay = day.day < 10 ? 2 : 1;
     let formattedDay = day.day.toString().padStart(marginBetweenDay);
 
     if (day.weekday === 6 || day.hasSame(lastDay, "day")) {
