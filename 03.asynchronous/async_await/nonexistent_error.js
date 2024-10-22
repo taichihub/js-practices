@@ -19,8 +19,6 @@ async function manageBooks() {
 
     await run(`DROP TABLE books`);
     process.stdout.write("テーブルが削除されました。\n");
-  } catch (err) {
-    process.stderr.write(`エラーが発生しました: ${err.message}\n`);
   } finally {
     close();
   }
