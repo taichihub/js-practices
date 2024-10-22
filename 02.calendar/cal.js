@@ -11,14 +11,11 @@ function printCalendar(year, month) {
     process.exit(1);
   }
 
-  const marginAfterOctober = 9;
-  const marginBeforeOctober = 8;
   const headerYear = `${year}`;
-  const headerMonth = `${month}月`.padStart(
-    month.toString().length == 2 ? marginAfterOctober : marginBeforeOctober,
-  );
+  const headerMonth = month < 10 ? ` ${month}月` : `${month}月`;
+  const headerMargin = 8;
 
-  console.log(`${headerMonth} ${headerYear}`);
+  console.log(`${headerMonth.padStart(headerMargin)} ${headerYear}`);
   console.log("日 月 火 水 木 金 土");
 
   const firstDay = DateTime.local(year, month, 1);
