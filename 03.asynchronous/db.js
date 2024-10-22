@@ -30,8 +30,15 @@ export class Database {
   }
 
   close() {
-    this.db.close();
-    process.stdout.write("データベース接続を閉じました。\n");
+    return new Promise((resolve, reject) => {
+      this.db.close((err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 }
 

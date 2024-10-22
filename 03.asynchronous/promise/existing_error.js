@@ -32,4 +32,5 @@ dbInstance
   })
   .finally(() => {
     dbInstance.close();
+    console.log("データベース接続を閉じました。");
   });

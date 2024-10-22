@@ -22,4 +22,5 @@ try {
   console.log("テーブルが削除されました。");
 } finally {
   dbInstance.close();
+  console.log("データベース接続を閉じました。");
 }
