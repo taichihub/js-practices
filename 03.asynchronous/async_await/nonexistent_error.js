@@ -5,20 +5,20 @@ async function manageBooks() {
     await run(
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
-    process.stdout.write("テーブルが作成されました。\n");
+    console.log("テーブルが作成されました。");
 
     const result = await run("INSERT INTO books (title) VALUES (?)", [
       "Node.js入門",
     ]);
-    process.stdout.write(`行が追加されました。id: ${result.lastID}\n`);
+    console.log(`行が追加されました。id: ${result.lastID}`);
 
     const rows = await all("SELECT * FROM books");
     rows.forEach((row) => {
-      process.stdout.write(`${row.id}: ${row.title}\n`);
+      console.log(`${row.id}: ${row.title}`);
     });
 
     await run("DROP TABLE books");
-    process.stdout.write("テーブルが削除されました。\n");
+    console.log("テーブルが削除されました。");
   } finally {
     close();
   }
