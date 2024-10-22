@@ -1,23 +1,25 @@
-import { run, all, close } from "../db.js";
+import { loadDatabase } from "../db.js";
+
+const dbInstance = loadDatabase();
 
 try {
-  await run(
+  await dbInstance.run(
     "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
   );
   console.log("テーブルが作成されました。");
 
-  const result = await run("INSERT INTO books (title) VALUES (?)", [
+  const result = await dbInstance.run("INSERT INTO books (title) VALUES (?)", [
     "Node.js入門",
   ]);
   console.log(`行が追加されました。id: ${result.lastID}`);
 
-  const rows = await all("SELECT * FROM books");
+  const rows = await dbInstance.all("SELECT * FROM books");
   rows.forEach((row) => {
     console.log(`${row.id}: ${row.title}`);
   });
 
-  await run("DROP TABLE books");
+  await dbInstance.run("DROP TABLE books");
   console.log("テーブルが削除されました。");
 } finally {
-  close();
+  dbInstance.close();
 }
