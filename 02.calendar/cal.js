@@ -19,10 +19,9 @@ function printCalendar(year, month) {
   console.log("日 月 火 水 木 金 土");
 
   const firstDay = DateTime.local(year, month, 1);
+  const lastDay = firstDay.endOf("month");
   const padding = " ".repeat((firstDay.weekday % 7) * 3);
   process.stdout.write(padding);
-
-  const lastDay = firstDay.endOf("month");
 
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
     let marginBetweenDay = day.day < 10 ? 2 : 1;
