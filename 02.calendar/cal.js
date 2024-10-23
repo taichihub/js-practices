@@ -11,7 +11,7 @@ function printCalendar(year, month) {
     process.exit(1);
   }
 
-  const headerYear = `${year}`;
+  const headerYear = year.toString();
   const headerMonth = month < 10 ? ` ${month}月` : `${month}月`;
   const headerMargin = 8;
 
