@@ -10,11 +10,11 @@ export class MemoDatabase {
   constructor() {
     this.db = new sqlite3.Database(DATABASE_PATH, (err) => {
       if (handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR)) return;
-      this.setupDatabase();
+      this.#setupDatabase();
     });
   }
 
-  setupDatabase() {
+  #setupDatabase() {
     this.db.run(CREATE_MEMOS_TABLE, (err) => {
       if (handleError(err, DATABASE_LOG_MESSAGES.SETUP_ERROR)) return;
     });
