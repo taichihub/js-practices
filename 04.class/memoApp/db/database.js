@@ -14,7 +14,7 @@ export class MemoDatabase {
   async connect() {
     try {
       this.db = await this.#openDatabase(DATABASE_PATH);
-      await this.#setupDatabase();
+      await this.#createMemosTable();
     } catch (err) {
       handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR);
     }
@@ -32,7 +32,7 @@ export class MemoDatabase {
     });
   }
 
-  #setupDatabase() {
+  #createMemosTable() {
     return new Promise((resolve, reject) => {
       this.db.run(CREATE_MEMOS_TABLE, (err) => {
         if (err) {
