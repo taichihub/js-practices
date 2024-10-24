@@ -2,7 +2,7 @@
 import sqlite3 from "sqlite3";
 
 // プロジェクト内からのインポート
-import { CREATE_TABLE_MEMOS } from "./queries.js";
+import { CREATE_MEMOS_TABLE } from "./queries.js";
 import { DATABASE_LOG_MESSAGES, handleError } from "../config/log.js";
 import { DATABASE_PATH } from "../config/settings.js";
 
@@ -15,7 +15,7 @@ export class Database {
   }
 
   setupDatabase() {
-    this.db.run(CREATE_TABLE_MEMOS, (err) => {
+    this.db.run(CREATE_MEMOS_TABLE, (err) => {
       if (handleError(err, DATABASE_LOG_MESSAGES.SETUP_ERROR)) return;
     });
   }
