@@ -8,15 +8,39 @@ import { DATABASE_PATH } from "../config/settings.js";
 
 export class MemoDatabase {
   constructor() {
-    this.db = new sqlite3.Database(DATABASE_PATH, (err) => {
-      if (handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR)) return;
-      this.#setupDatabase();
+    this.db = null;
+  }
+
+  async connect() {
+    try {
+      this.db = await this.#openDatabase(DATABASE_PATH);
+      await this.#setupDatabase();
+    } catch (err) {
+      handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR);
+    }
+  }
+
+  #openDatabase(path) {
+    return new Promise((resolve, reject) => {
+      const db = new sqlite3.Database(path, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(db);
+        }
+      });
     });
   }
 
   #setupDatabase() {
-    this.db.run(CREATE_MEMOS_TABLE, (err) => {
-      if (handleError(err, DATABASE_LOG_MESSAGES.SETUP_ERROR)) return;
+    return new Promise((resolve, reject) => {
+      this.db.run(CREATE_MEMOS_TABLE, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
     });
   }
 
