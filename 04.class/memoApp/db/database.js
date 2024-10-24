@@ -20,7 +20,7 @@ export class MemoDatabase {
     });
   }
 
-  getDb() {
+  get databaseConnection() {
     return this.db;
   }
 }

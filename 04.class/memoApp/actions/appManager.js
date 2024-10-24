@@ -5,7 +5,7 @@ import { deleteMemo } from "./deleteMemo.js";
 
 export class MemoApp {
   constructor(database) {
-    this.db = database.getDb();
+    this.db = database.databaseConnection;
   }
 
   addMemo() {
