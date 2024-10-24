@@ -6,7 +6,7 @@ import { CREATE_MEMOS_TABLE } from "./queries.js";
 import { DATABASE_LOG_MESSAGES, handleError } from "../config/log.js";
 import { DATABASE_PATH } from "../config/settings.js";
 
-export class Database {
+export class MemoDatabase {
   constructor() {
     this.db = new sqlite3.Database(DATABASE_PATH, (err) => {
       if (handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR)) return;

@@ -1,8 +1,8 @@
-import { Database } from "./db/database.js";
+import { MemoDatabase } from "./db/database.js";
 import { MemoApp } from "./actions/appManager.js";
 import { OPTIONS } from "./config/settings.js";
 
-const database = new Database();
+const database = new MemoDatabase();
 const memoApp = new MemoApp(database);
 const args = process.argv.slice(2);
 
