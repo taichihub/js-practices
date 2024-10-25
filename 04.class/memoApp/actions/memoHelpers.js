@@ -7,7 +7,7 @@ import {
   COMMON_LOG_MESSAGES,
   MEMO_HELPERS_LOG_MESSAGES,
   logMessage,
-  handleError,
+  logError,
 } from "../config/log.js";
 
 export async function handleMemoAction(
@@ -16,54 +16,67 @@ export async function handleMemoAction(
   query,
   successMessage,
 ) {
-  const selectedMemoId = await selectMemo(db, promptMessage);
+  try {
+    const selectedMemoId = await selectMemo(db, promptMessage);
 
-  if (selectedMemoId) {
-    db.get(query, [selectedMemoId], (err, result) => {
-      if (handleError(err, COMMON_LOG_MESSAGES.ERROR)) return;
+    if (selectedMemoId) {
+      const result = await new Promise((resolve, reject) => {
+        db.get(query, [selectedMemoId], (err, row) => {
+          if (err) {
+            reject(new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`));
+          } else {
+            resolve(row);
+          }
+        });
+      });
+
       if (result) {
         logMessage(successMessage(result));
       }
-    });
+    }
+  } catch (error) {
+    logError(`${COMMON_LOG_MESSAGES.ERROR}${error.message}\n`);
   }
 }
 
 export async function selectMemo(db, message) {
-  return new Promise((resolve, reject) => {
-    db.all(SELECT_ALL_MEMOS, [], async (err, rows) => {
-      if (handleError(err, COMMON_LOG_MESSAGES.ERROR)) return reject(err);
-      checkIfEmpty(
-        rows,
-        logMessage,
-        MEMO_HELPERS_LOG_MESSAGES.NO_MEMOS,
-        resolve,
-      );
-
-      const choices = rows.map((row) => ({
-        name: row.memo.split("\n")[0],
-        value: row.id,
-      }));
-
-      const answer = await inquirer.prompt([
-        {
-          type: "list",
-          name: "selectedMemo",
-          message: message,
-          choices: choices,
-        },
-      ]);
-
-      resolve(answer.selectedMemo);
+  try {
+    const rows = await new Promise((resolve, reject) => {
+      db.all(SELECT_ALL_MEMOS, [], (err, rows) => {
+        if (err) {
+          return reject(
+            new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`),
+          );
+        }
+        resolve(rows);
+      });
     });
-  });
+    checkIfEmpty(rows, logMessage, MEMO_HELPERS_LOG_MESSAGES.NO_MEMOS);
+
+    const choices = rows.map((row) => ({
+      name: row.memo.split("\n")[0],
+      value: row.id,
+    }));
+
+    const answer = await inquirer.prompt([
+      {
+        type: "list",
+        name: "selectedMemo",
+        message: message,
+        choices: choices,
+      },
+    ]);
+
+    return answer.selectedMemo;
+  } catch (error) {
+    logError(`${COMMON_LOG_MESSAGES.ERROR}${error.message}\n`);
+    throw error;
+  }
 }
 
-export function checkIfEmpty(array, logMessage, message, resolve = null) {
+export function checkIfEmpty(array, logMessage, message) {
   if (array.length === 0) {
     logMessage(message);
-    if (resolve) {
-      return resolve(null);
-    }
-    return;
+    process.exit(1);
   }
 }

@@ -3,7 +3,7 @@ import sqlite3 from "sqlite3";
 
 // プロジェクト内からのインポート
 import { CREATE_MEMOS_TABLE } from "./queries.js";
-import { DATABASE_LOG_MESSAGES, handleError } from "../config/log.js";
+import { DATABASE_LOG_MESSAGES } from "../config/log.js";
 import { DATABASE_PATH } from "../config/settings.js";
 
 export class MemoDatabase {
@@ -16,7 +16,9 @@ export class MemoDatabase {
       this.db = await this.#openDatabase(DATABASE_PATH);
       await this.#createMemosTable();
     } catch (err) {
-      handleError(err, DATABASE_LOG_MESSAGES.CONNECTION_ERROR);
+      console.error(
+        `${DATABASE_LOG_MESSAGES.CONNECTION_ERROR}${err.message}\n`,
+      );
     }
   }
 

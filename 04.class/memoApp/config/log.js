@@ -8,14 +8,6 @@ export function logError(message) {
   process.stderr.write(message);
 }
 
-export function handleError(err, logMessage) {
-  if (err) {
-    logError(`${logMessage}${err.message}\n`);
-    return true;
-  }
-  return false;
-}
-
 // 共通ログメッセージ
 export const COMMON_LOG_MESSAGES = {
   ERROR: "エラー: ",

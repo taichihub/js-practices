@@ -11,7 +11,7 @@ import {
   ADD_MEMO_LOG_MESSAGES,
   COMMON_LOG_MESSAGES,
   logMessage,
-  handleError,
+  logError,
 } from "../config/log.js";
 
 export function addMemo(db) {
@@ -35,9 +35,20 @@ export function addMemo(db) {
   }
 }
 
-function saveMemo(db, memoContent) {
-  db.run(INSERT_MEMO, [memoContent.trim()], (err) => {
-    if (handleError(err, COMMON_LOG_MESSAGES.ERROR)) return;
+export async function saveMemo(db, memoContent) {
+  try {
+    await new Promise((resolve, reject) => {
+      db.run(INSERT_MEMO, [memoContent.trim()], (err) => {
+        if (err) {
+          return reject(
+            new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}`),
+          );
+        }
+        resolve();
+      });
+    });
     logMessage(ADD_MEMO_LOG_MESSAGES.SUCCESS);
-  });
+  } catch (error) {
+    logError(error.message);
+  }
 }
