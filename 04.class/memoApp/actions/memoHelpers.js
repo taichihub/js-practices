@@ -69,8 +69,7 @@ export async function selectMemo(db, message) {
 
     return answer.selectedMemo;
   } catch (error) {
-    logError(`${COMMON_LOG_MESSAGES.ERROR}${error.message}\n`);
-    throw error;
+    throw new Error(error.message);
   }
 }
 
