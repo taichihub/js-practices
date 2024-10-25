@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { MemoDatabase } from "./memoApp/db/database.js";
-import { MemoApp } from "./memoApp/actions/appManager.js";
+import { MemoApp } from "./memoApp/actions/memoApp.js";
 import { OPTIONS } from "./memoApp/config/settings.js";
 
 const database = new MemoDatabase();
