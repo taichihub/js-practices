@@ -19,21 +19,20 @@ db.run(
           function (err) {
             if (err) {
               console.error(`エラーが発生しました: ${err.message}`);
+            }
+            db.all("SELECT * FROM books WHERE id = -1", (_, rows) => {
+              if (rows.length === 0) {
+                console.error("エラーが発生しました: レコードが存在しません");
+              }
 
-              db.all("SELECT * FROM books WHERE id = -1", (_, rows) => {
-                if (rows.length === 0) {
-                  console.error("エラーが発生しました: レコードが存在しません");
-                }
+              db.run("DROP TABLE books", () => {
+                console.log("テーブルが削除されました。");
 
-                db.run("DROP TABLE books", () => {
-                  console.log("テーブルが削除されました。");
-
-                  db.close(() => {
-                    console.log("データベース接続を閉じました。");
-                  });
+                db.close(() => {
+                  console.log("データベース接続を閉じました。");
                 });
               });
-            }
+            });
           },
         );
       },
