@@ -13,7 +13,7 @@ db.run(
       function () {
         console.log(`行が追加されました。id: ${this.lastID}`);
 
-        db.all("SELECT * FROM books", [], (_, rows) => {
+        db.all("SELECT * FROM books", (_, rows) => {
           rows.forEach((row) => {
             console.log(`${row.id}: ${row.title}`);
           });
