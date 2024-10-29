@@ -14,8 +14,7 @@ function printCalendar(year, month) {
   const headerYear = year.toString();
   const headerMonth = `${month}月`;
 
-  console.log(`      ${headerMonth} ${headerYear}`);
-  console.log("日 月 火 水 木 金 土");
+  console.log(`      ${headerMonth} ${headerYear}\n日 月 火 水 木 金 土`);
 
   const firstDay = DateTime.local(year, month, 1);
   const lastDay = firstDay.endOf("month");
