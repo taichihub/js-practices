@@ -20,8 +20,9 @@ db.run(
             if (err) {
               console.error(`エラーが発生しました: ${err.message}`);
             }
-            db.all("SELECT * FROM books WHERE id = -1", (_, rows) => {
-              if (rows.length === 0) {
+
+            db.all("SELECT * FROM books WHERE id = -1", (err) => {
+              if (err) {
                 console.error("エラーが発生しました: レコードが存在しません");
               }
 
