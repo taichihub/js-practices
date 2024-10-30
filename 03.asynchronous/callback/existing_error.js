@@ -1,6 +1,4 @@
-import { loadDatabase } from "../db_operations.js";
-
-const db = loadDatabase().db;
+import { db } from "../db_operations.js";
 
 db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
