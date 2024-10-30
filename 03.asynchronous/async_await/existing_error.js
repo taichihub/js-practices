@@ -16,7 +16,9 @@ try {
     }
   }
 } catch (err) {
-  console.error(`エラーが発生しました: ${err.message}`);
+  if (err instanceof Error) {
+    console.error(`エラーが発生しました: ${err.message}`);
+  }
   try {
     await run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   } catch {
