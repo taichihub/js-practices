@@ -13,14 +13,14 @@ run(
   })
   .catch((err) => {
     console.error(`エラーが発生しました: ${err.message}`);
-    return run("SELECT * FROM books WHERE id = ?", [-1])
-      .then(() => {
-        console.error("エラーが発生しました: レコードが存在しません");
-        return run("DROP TABLE books");
-      })
-      .then(() => {
-        console.log("テーブルが削除されました。");
-      });
+    return run("SELECT * FROM books WHERE id = ?", [-1]);
+  })
+  .then(() => {
+    console.error("エラーが発生しました: レコードが存在しません");
+    return run("DROP TABLE books");
+  })
+  .then(() => {
+    console.log("テーブルが削除されました。");
   })
   .finally(() => {
     close();
