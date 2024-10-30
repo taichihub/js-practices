@@ -8,8 +8,12 @@ try {
 
   const titles = ["Node.js入門", "Node.js入門"];
   for (const title of titles) {
-    const result = await run("INSERT INTO books (title) VALUES (?)", [title]);
-    console.log(`行が追加されました。id: ${result.lastID}`);
+    try {
+      const result = await run("INSERT INTO books (title) VALUES (?)", [title]);
+      console.log(`行が追加されました。id: ${result.lastID}`);
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 } catch (err) {
   console.error(`エラーが発生しました: ${err.message}`);
