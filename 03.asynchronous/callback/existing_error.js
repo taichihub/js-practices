@@ -21,7 +21,7 @@ db.run(
 
             db.all("SELECT content FROM books", (err) => {
               if (err) {
-                console.error("エラーが発生しました: レコードが存在しません");
+                console.error(`エラーが発生しました: ${err.message}`);
               }
 
               db.run("DROP TABLE books", () => {
