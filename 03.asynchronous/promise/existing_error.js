@@ -13,10 +13,10 @@ run(
   })
   .catch((err) => {
     console.error(`エラーが発生しました: ${err.message}`);
-    return run("SELECT * FROM books WHERE id = ?", [-1]);
+    return run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   })
-  .then(() => {
-    console.error("エラーが発生しました: レコードが存在しません");
+  .catch((err) => {
+    console.error(`エラーが発生しました: ${err.message}`);
     return run("DROP TABLE books");
   })
   .then(() => {

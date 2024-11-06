@@ -22,7 +22,7 @@ try {
   try {
     await run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   } catch {
-    console.error("エラーが発生しました: レコードが存在しません");
+    console.error(`エラーが発生しました: ${err.message}`);
   }
   await run("DROP TABLE books");
   console.log("テーブルが削除されました。");
