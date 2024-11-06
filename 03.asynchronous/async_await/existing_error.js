@@ -27,6 +27,6 @@ try {
   await run("DROP TABLE books");
   console.log("テーブルが削除されました。");
 } finally {
-  close();
+  await close();
   console.log("データベース接続を閉じました。");
 }

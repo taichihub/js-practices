@@ -24,5 +24,7 @@ run(
   })
   .finally(() => {
     close();
+  })
+  .then(() => {
     console.log("データベース接続を閉じました。");
   });
