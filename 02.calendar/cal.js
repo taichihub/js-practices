@@ -11,13 +11,12 @@ function printCalendar(year, month) {
     process.exit(1);
   }
 
-  const headerYear = year.toString();
-  const headerMonth = `${month}月`;
-
-  console.log(`      ${headerMonth} ${headerYear}\n日 月 火 水 木 金 土`);
+  console.log(`      ${month}月 ${year.toString()}`);
+  console.log("日 月 火 水 木 金 土");
 
   const firstDay = DateTime.local(year, month, 1);
   const lastDay = firstDay.endOf("month");
+
   const padding = " ".repeat((firstDay.weekday % 7) * 3);
   process.stdout.write(padding);
 
@@ -26,13 +25,12 @@ function printCalendar(year, month) {
 
     if (day.weekday === 6 || day.hasSame(lastDay, "day")) {
       console.log(formattedDay);
+      if (day.hasSame(lastDay, "day") && lastDay.weekday !== 6) {
+        console.log();
+      }
     } else {
       process.stdout.write(`${formattedDay} `);
     }
-  }
-
-  if (lastDay.weekday !== 6) {
-    console.log();
   }
 }
 
