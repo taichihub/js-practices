@@ -19,9 +19,9 @@ try {
   await run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
 } catch (err) {
   console.error(`エラーが発生しました: ${err.message}`);
+} finally {
   await run("DROP TABLE books");
   console.log("テーブルが削除されました。");
-} finally {
   await close();
   console.log("データベース接続を閉じました。");
 }
