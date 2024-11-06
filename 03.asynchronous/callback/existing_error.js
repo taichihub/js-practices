@@ -14,7 +14,7 @@ db.run(
         db.run(
           "INSERT INTO books (title) VALUES (?)",
           ["Node.js入門"],
-          function (err) {
+          (err) => {
             if (err) {
               console.error(`エラーが発生しました: ${err.message}`);
             }
