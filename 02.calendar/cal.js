@@ -22,12 +22,12 @@ function printCalendar(year, month) {
 
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
     const formattedDay = day.day.toString().padStart(2);
-
-    if (day.weekday === 6 || day.hasSame(lastDay, "day")) {
+    const isLastDay = day.hasSame(lastDay, "day");
+    if (isLastDay && lastDay.weekday !== 6) {
       console.log(formattedDay);
-      if (day.hasSame(lastDay, "day") && lastDay.weekday !== 6) {
-        console.log();
-      }
+      console.log();
+    } else if (isLastDay || day.weekday === 6) {
+      console.log(formattedDay);
     } else {
       process.stdout.write(`${formattedDay} `);
     }
