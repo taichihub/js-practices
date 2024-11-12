@@ -1,6 +1,6 @@
 import { SELECT_MEMO_BY_ID } from "../db/queries.js";
 import { READ_MEMO_LOG_MESSAGES } from "../config/log.js";
-import { handleMemoAction } from "./memoHelpers.js";
+import { handleMemoAction } from "../helpers/memoHelpers.js";
 
 export async function readMemo(db) {
   await handleMemoAction(

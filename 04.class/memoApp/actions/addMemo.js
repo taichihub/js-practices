@@ -6,7 +6,7 @@ import { stdin as input, stdout as output } from "process";
 // プロジェクト内からのインポート
 import { INSERT_MEMO } from "../db/queries.js";
 import { FILE_ENCODING } from "../config/settings.js";
-import { checkIfEmpty } from "./memoHelpers.js";
+import { checkIfEmpty } from "../helpers/memoHelpers.js";
 import {
   ADD_MEMO_LOG_MESSAGES,
   COMMON_LOG_MESSAGES,

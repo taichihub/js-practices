@@ -1,5 +1,5 @@
 import { SELECT_ALL_MEMOS } from "../db/queries.js";
-import { checkIfEmpty } from "./memoHelpers.js";
+import { checkIfEmpty } from "../helpers/memoHelpers.js";
 import {
   LIST_MEMOS_LOG_MESSAGES,
   COMMON_LOG_MESSAGES,
