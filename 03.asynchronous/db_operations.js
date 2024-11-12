@@ -1,10 +1,16 @@
 import sqlite3 from "sqlite3";
 
-export const db = new sqlite3.Database(":memory:", () => {
-  console.log("メモリ内のSQLiteデータベースに接続しました。");
+export const db = new sqlite3.Database(":memory:");
+
+export const dbReady = new Promise((resolve, reject) => {
+  db.once("open", () => {
+    console.log("メモリ内のSQLiteデータベースに接続しました。");
+    resolve();
+  });
+  db.once("error", (err) => reject(err));
 });
 
-export function run(sql, params) {
+export function run(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.run(sql, params, function (err) {
       if (err) {
@@ -16,7 +22,7 @@ export function run(sql, params) {
   });
 }
 
-export function all(sql, params) {
+export function all(db, sql, params) {
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => {
       if (err) {
@@ -28,7 +34,7 @@ export function all(sql, params) {
   });
 }
 
-export function close() {
+export function close(db) {
   return new Promise((resolve, reject) => {
     db.close((err) => {
       if (err) {

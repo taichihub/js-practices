@@ -1,30 +1,39 @@
-import { run, close } from "../db_operations.js";
+import { db, dbReady, run, close } from "../db_operations.js";
 
-run(
-  "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-)
+dbReady
+  .then(() => {
+    return run(
+      db,
+      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+    );
+  })
   .then(() => {
     console.log("テーブルが作成されました。");
-    return run("INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
+    return run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
   })
   .then((result) => {
     console.log(`行が追加されました。id: ${result.lastID}`);
-    return run("INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
+    return run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
   })
   .catch((err) => {
     console.error(`エラーが発生しました: ${err.message}`);
-    return run("SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
+    return run(db, "SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   })
   .catch((err) => {
     console.error(`エラーが発生しました: ${err.message}`);
-    return run("DROP TABLE books");
+    return run(db, "DROP TABLE books");
   })
   .then(() => {
     console.log("テーブルが削除されました。");
   })
   .finally(() => {
-    close();
+    close(db);
   })
   .then(() => {
     console.log("データベース接続を閉じました。");
+  })
+  .catch((err) => {
+    console.error(
+      `データベース接続を閉じる際にエラーが発生しました: ${err.message}`,
+    );
   });
