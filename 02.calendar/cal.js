@@ -23,10 +23,10 @@ function printCalendar(year, month) {
   for (let day = firstDay; day <= lastDay; day = day.plus({ days: 1 })) {
     const formattedDay = day.day.toString().padStart(2);
     const isLastDay = day.hasSame(lastDay, "day");
-    if (isLastDay && lastDay.weekday !== 6) {
+    if (isLastDay) {
       console.log(formattedDay);
       console.log();
-    } else if (isLastDay || day.weekday === 6) {
+    } else if (day.weekday === 6) {
       console.log(formattedDay);
     } else {
       process.stdout.write(`${formattedDay} `);
