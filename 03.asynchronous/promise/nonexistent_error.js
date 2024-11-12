@@ -21,7 +21,7 @@ run(
     console.log("テーブルが削除されました。");
   })
   .finally(() => {
-    close();
+    return close();
   })
   .then(() => {
     console.log("データベース接続を閉じました。");
