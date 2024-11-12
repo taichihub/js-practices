@@ -42,7 +42,7 @@ export async function handleMemoAction(
 export async function selectMemo(db, message) {
   try {
     const rows = await new Promise((resolve, reject) => {
-      db.all(SELECT_ALL_MEMOS, [], (err, rows) => {
+      db.all(SELECT_ALL_MEMOS, (err, rows) => {
         if (err) {
           return reject(
             new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`),
