@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { MemoDatabase } from "./memoApp/db/database.js";
-import { addMemo } from "./memoApp/actions/addMemo.js";
-import { listMemos } from "./memoApp/actions/listMemos.js";
-import { readMemo } from "./memoApp/actions/readMemo.js";
-import { deleteMemo } from "./memoApp/actions/deleteMemo.js";
-import { OPTIONS } from "./memoApp/config/settings.js";
+import { MemoDatabase } from "./db/database.js";
+import { addMemo } from "./actions/addMemo.js";
+import { listMemos } from "./actions/listMemos.js";
+import { readMemo } from "./actions/readMemo.js";
+import { deleteMemo } from "./actions/deleteMemo.js";
+import { OPTIONS } from "./config/settings.js";
 
 const DBInstance = new MemoDatabase();
 await DBInstance.connect();

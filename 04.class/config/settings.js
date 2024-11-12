@@ -1,5 +1,5 @@
 // データベースのパス
-export const DATABASE_PATH = "memoApp/db/memo.db";
+export const DATABASE_PATH = "db/memo.db";
 
 // ファイルのエンコーディング
 export const FILE_ENCODING = "utf-8";
