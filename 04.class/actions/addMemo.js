@@ -1,9 +1,6 @@
-// Node.js標準モジュール
 import { readFileSync } from "fs";
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
-
-// プロジェクト内からのインポート
 import { INSERT_MEMO } from "../db/queries.js";
 import { FILE_ENCODING } from "../config/settings.js";
 import { checkIfEmpty } from "../helpers/memoHelpers.js";
@@ -14,7 +11,7 @@ import {
   logError,
 } from "../config/log.js";
 
-export function addMemo(db) {
+export function addMemo(db, content) {
   if (!input.isTTY) {
     const inputContent = readFileSync(0, FILE_ENCODING);
     saveMemo(db, inputContent);
@@ -22,7 +19,6 @@ export function addMemo(db) {
     const rl = createInterface({ input, output });
     logMessage(ADD_MEMO_LOG_MESSAGES.PROMPT);
 
-    const content = [];
     rl.on("line", (line) => {
       content.push(line);
     });

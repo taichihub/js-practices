@@ -1,28 +1,30 @@
 #!/usr/bin/env node
 
 import { MemoDatabase } from "./db/database.js";
-import { addMemo } from "./actions/addMemo.js";
-import { listMemos } from "./actions/listMemos.js";
-import { readMemo } from "./actions/readMemo.js";
-import { deleteMemo } from "./actions/deleteMemo.js";
+import { MemoApp } from "./memoApp.js";
 import { OPTIONS } from "./config/settings.js";
 
-const DBInstance = new MemoDatabase();
-await DBInstance.connect();
-const database = DBInstance.databaseConnection;
-const args = process.argv.slice(2);
+async function main() {
+  const DBInstance = new MemoDatabase();
+  await DBInstance.connect();
+  const database = DBInstance.databaseConnection;
+  const args = process.argv.slice(2);
+  const memoApp = new MemoApp(database);
 
-switch (args[0]) {
-  case OPTIONS.LIST:
-    listMemos(database);
-    break;
-  case OPTIONS.READ:
-    readMemo(database);
-    break;
-  case OPTIONS.DELETE:
-    deleteMemo(database);
-    break;
-  default:
-    addMemo(database);
-    break;
+  switch (args[0]) {
+    case OPTIONS.LIST:
+      memoApp.listMemos();
+      break;
+    case OPTIONS.READ:
+      memoApp.readMemo();
+      break;
+    case OPTIONS.DELETE:
+      memoApp.deleteMemo();
+      break;
+    default:
+      memoApp.addMemo();
+      break;
+  }
 }
+
+main();
