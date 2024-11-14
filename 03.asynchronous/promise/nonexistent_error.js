@@ -6,10 +6,7 @@ dbReady
   .then((resolvedDB) => {
     console.log("メモリ内のSQLiteデータベースに接続しました。");
     db = resolvedDB;
-    return run(
-      db,
-      "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-    );
+    return run(db, "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)");
   })
   .then(() => {
     console.log("テーブルが作成されました。");
