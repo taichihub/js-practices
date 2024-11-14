@@ -14,7 +14,11 @@ try {
       console.log(`行が追加されました。id: ${result.lastID}`);
     }
   } catch (err) {
-    console.error(`エラーが発生しました: ${err.message}`);
+    if (err.message.includes("UNIQUE constraint failed")) {
+      console.error(`エラーが発生しました: ${err.message}`);
+    } else {
+      throw err;
+    }
   }
 
   try {
