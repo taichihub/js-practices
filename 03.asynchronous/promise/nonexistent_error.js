@@ -1,7 +1,11 @@
-import { db, dbReady, run, all, close } from "../db_operations.js";
+import { dbReady, run, all, close } from "../db_operations.js";
+
+let db;
 
 dbReady
-  .then(() => {
+  .then((resolvedDB) => {
+    console.log("メモリ内のSQLiteデータベースに接続しました。");
+    db = resolvedDB;
     return run(
       db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",

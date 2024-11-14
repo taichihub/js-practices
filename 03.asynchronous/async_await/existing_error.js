@@ -1,6 +1,7 @@
-import { db, dbReady, run, all, close } from "../db_operations.js";
+import { dbReady, run, all, close } from "../db_operations.js";
 
-await dbReady;
+let db = await dbReady;
+console.log("メモリ内のSQLiteデータベースに接続しました。");
 
 try {
   await run(

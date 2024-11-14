@@ -1,13 +1,13 @@
 import sqlite3 from "sqlite3";
 
-export const db = new sqlite3.Database(":memory:");
-
 export const dbReady = new Promise((resolve, reject) => {
-  db.once("open", () => {
-    console.log("メモリ内のSQLiteデータベースに接続しました。");
-    resolve();
+  const db = new sqlite3.Database(":memory:", (err) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(db);
+    }
   });
-  db.once("error", (err) => reject(err));
 });
 
 export function run(db, sql, params) {
