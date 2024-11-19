@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { dbReady, run, all, close } from "../db_operations.js";
+import { createDatabase, run, all, close } from "../db_operations.js";
 
-let db = await dbReady;
+let db = await createDatabase();
 console.log("メモリ内のSQLiteデータベースに接続しました。");
 
 try {

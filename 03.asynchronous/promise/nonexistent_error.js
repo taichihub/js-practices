@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { dbReady, run, all, close } from "../db_operations.js";
+import { createDatabase, run, all, close } from "../db_operations.js";
 
 let db;
 
-dbReady
+createDatabase()
   .then((resolvedDB) => {
     console.log("メモリ内のSQLiteデータベースに接続しました。");
     db = resolvedDB;

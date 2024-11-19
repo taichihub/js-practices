@@ -1,14 +1,16 @@
 import sqlite3 from "sqlite3";
 
-export const dbReady = new Promise((resolve, reject) => {
-  const db = new sqlite3.Database(":memory:", (err) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(db);
-    }
+export const createDatabase = () => {
+  return new Promise((resolve, reject) => {
+    const db = new sqlite3.Database(":memory:", (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(db);
+      }
+    });
   });
-});
+};
 
 export function run(db, sql, params) {
   return new Promise((resolve, reject) => {
