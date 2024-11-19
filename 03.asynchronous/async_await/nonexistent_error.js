@@ -6,10 +6,15 @@ let db = await createDatabase();
 console.log("メモリ内のSQLiteデータベースに接続しました。");
 
 try {
-  await run(db, "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)");
+  await run(
+    db,
+    "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
+  );
   console.log("テーブルが作成されました。");
 
-  const result = await run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
+  const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
+    "Node.js入門",
+  ]);
   console.log(`行が追加されました。id: ${result.lastID}`);
 
   const rows = await all(db, "SELECT * FROM books");
