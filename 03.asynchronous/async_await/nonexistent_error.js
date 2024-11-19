@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { dbReady, run, all, close } from "../db_operations.js";
 
 let db = await dbReady;
