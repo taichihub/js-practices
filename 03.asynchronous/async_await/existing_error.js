@@ -13,13 +13,11 @@ try {
   console.log("テーブルが作成されました。");
 
   try {
-    const titles = ["Node.js入門", "Node.js入門"];
-    for (const title of titles) {
-      const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
-        title,
-      ]);
-      console.log(`行が追加されました。id: ${result.lastID}`);
-    }
+    const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
+      "Node.js入門",
+    ]);
+    console.log(`行が追加されました。id: ${result.lastID}`);
+    await run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
   } catch (err) {
     if (
       String(err).includes(
