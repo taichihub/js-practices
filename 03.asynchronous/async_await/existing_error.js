@@ -21,8 +21,12 @@ try {
       console.log(`行が追加されました。id: ${result.lastID}`);
     }
   } catch (err) {
-    if (err.message.includes("UNIQUE constraint failed")) {
-      console.error(`エラーが発生しました: ${err.message}`);
+    if (
+      String(err).includes(
+        "SQLITE_CONSTRAINT: UNIQUE constraint failed: books.title",
+      )
+    ) {
+      console.error(`エラーが発生しました: ${String(err)}`);
     } else {
       throw err;
     }
