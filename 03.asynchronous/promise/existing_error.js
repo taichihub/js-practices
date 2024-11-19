@@ -37,9 +37,4 @@ createDatabase()
   })
   .then(() => {
     console.log("データベース接続を閉じました。");
-  })
-  .catch((err) => {
-    console.error(
-      `データベース接続を閉じる際にエラーが発生しました: ${err.message}`,
-    );
   });
