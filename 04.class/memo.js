@@ -8,21 +8,23 @@ async function main() {
   const DBInstance = new MemoDatabase();
   await DBInstance.connect();
   const database = DBInstance.databaseConnection;
-  const args = process.argv.slice(2);
+
   const memoApp = new MemoApp(database);
+  await memoApp.initializeMemos();
+  const args = process.argv.slice(2);
 
   switch (args[0]) {
     case OPTIONS.LIST:
       memoApp.listMemos();
       break;
     case OPTIONS.READ:
-      memoApp.readMemo();
+      await memoApp.readMemo();
       break;
     case OPTIONS.DELETE:
-      memoApp.deleteMemo();
+      await memoApp.deleteMemo();
       break;
     default:
-      memoApp.addMemo();
+      await memoApp.addMemo();
       break;
   }
 }
