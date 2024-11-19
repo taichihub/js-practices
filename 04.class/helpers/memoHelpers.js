@@ -2,26 +2,20 @@
 import inquirer from "inquirer";
 
 // プロジェクト内からのインポート
-import { SELECT_ALL_MEMOS } from "../db/queries.js";
-import {
-  COMMON_LOG_MESSAGES,
-  MEMO_HELPERS_LOG_MESSAGES,
-  logMessage,
-  logError,
-} from "../config/log.js";
+import { COMMON_LOG_MESSAGES, logMessage, logError } from "../config/log.js";
 
 export async function handleMemoAction(
-  db,
+  app,
   promptMessage,
   query,
-  successMessage,
+  successCallback,
 ) {
   try {
-    const selectedMemoId = await selectMemo(db, promptMessage);
+    const selectedMemoId = await selectMemo(app, promptMessage);
 
     if (selectedMemoId) {
       const result = await new Promise((resolve, reject) => {
-        db.get(query, [selectedMemoId], (err, row) => {
+        app.database.get(query, [selectedMemoId], (err, row) => {
           if (err) {
             reject(new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`));
           } else {
@@ -31,7 +25,7 @@ export async function handleMemoAction(
       });
 
       if (result) {
-        logMessage(successMessage(result));
+        successCallback(result, app);
       }
     }
   } catch (error) {
@@ -39,23 +33,13 @@ export async function handleMemoAction(
   }
 }
 
-export async function selectMemo(db, message) {
+export async function selectMemo(app, message) {
   try {
-    const rows = await new Promise((resolve, reject) => {
-      db.all(SELECT_ALL_MEMOS, (err, rows) => {
-        if (err) {
-          return reject(
-            new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`),
-          );
-        }
-        resolve(rows);
-      });
-    });
-    checkIfEmpty(rows, logMessage, MEMO_HELPERS_LOG_MESSAGES.NO_MEMOS);
-
-    const choices = rows.map((row) => ({
-      name: row.memo.split("\n")[0],
-      value: row.id,
+    const memos = app.memos;
+    checkIfEmpty(memos, logMessage);
+    const choices = memos.map((memo) => ({
+      name: memo.memo.split("\n")[0],
+      value: memo.id,
     }));
 
     const answer = await inquirer.prompt([
