@@ -31,12 +31,7 @@ try {
   }
 
   try {
-    const result = await all(
-      db,
-      "SELECT * FROM nonexistent_table WHERE id = ?",
-      [-1],
-    );
-    console.log(result);
+    await all(db, "SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   } catch (err) {
     console.error(`エラーが発生しました: ${err.message}`);
   }
