@@ -4,6 +4,7 @@ import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database(":memory:", () => {
   console.log("メモリ内のSQLiteデータベースに接続しました。");
+
   db.run("CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)", () => {
     console.log("テーブルが作成されました。");
 
