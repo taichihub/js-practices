@@ -7,9 +7,8 @@ let db;
 createDatabase()
   .then((resolvedDB) => {
     console.log("メモリ内のSQLiteデータベースに接続しました。");
-    db = resolvedDB;
     return run(
-      db,
+      (db = resolvedDB),
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
     );
   })
