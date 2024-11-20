@@ -2,7 +2,7 @@
 
 import { createDatabase, run, all, close } from "../db_operations.js";
 
-let db = await createDatabase();
+const db = await createDatabase();
 console.log("メモリ内のSQLiteデータベースに接続しました。");
 
 try {
