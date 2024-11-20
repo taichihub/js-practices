@@ -33,7 +33,13 @@ try {
   try {
     await all(db, "SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   } catch (err) {
-    console.error(`エラーが発生しました: ${err.message}`);
+    if (
+      String(err).includes("SQLITE_ERROR: no such table: nonexistent_table")
+    ) {
+      console.error(`エラーが発生しました: ${err.message}`);
+    } else {
+      throw err;
+    }
   }
 
   await run(db, "DROP TABLE books");
