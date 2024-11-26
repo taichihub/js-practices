@@ -34,9 +34,7 @@ createDatabase()
   .then(() => {
     console.log("テーブルが削除されました。");
   })
-  .finally(() => {
-    close(db);
-  })
+  .finally(() => close(db))
   .then(() => {
     console.log("データベース接続を閉じました。");
   });

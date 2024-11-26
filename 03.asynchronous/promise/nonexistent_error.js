@@ -32,9 +32,7 @@ createDatabase()
   .then(() => {
     console.log("テーブルが削除されました。");
   })
-  .finally(() => {
-    return close(db);
-  })
+  .finally(() => close(db))
   .then(() => {
     console.log("データベース接続を閉じました。");
   });
