@@ -8,11 +8,13 @@ createDatabase()
   .then((resolvedDB) => {
     console.log("メモリ内のSQLiteデータベースに接続しました。");
     db = resolvedDB;
-    return run(
+  })
+  .then(() =>
+    run(
       db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL UNIQUE)",
-    );
-  })
+    ),
+  )
   .then(() => {
     console.log("テーブルが作成されました。");
     return run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
