@@ -2,10 +2,10 @@ import { readFileSync } from "fs";
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
 import {
-  INSERT_MEMO,
-  SELECT_ALL_MEMOS,
-  SELECT_MEMO_BY_ID,
-  DELETE_MEMO_BY_ID,
+  MEMO_INSERTION,
+  ALL_MEMOS_SELECTION,
+  MEMO_SELECTION_BY_ID,
+  MEMO_DELETION_BY_ID,
 } from "./db/queries.js";
 import { FILE_ENCODING } from "./config/settings.js";
 import {
@@ -28,7 +28,7 @@ export class MemoApp {
   async initializeMemos() {
     try {
       const rows = await new Promise((resolve, reject) => {
-        this.database.all(SELECT_ALL_MEMOS, (err, rows) => {
+        this.database.all(ALL_MEMOS_SELECTION, (err, rows) => {
           if (err) {
             return reject(
               new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}`),
@@ -66,7 +66,7 @@ export class MemoApp {
   async saveMemo(memoContent) {
     try {
       await new Promise((resolve, reject) => {
-        this.database.run(INSERT_MEMO, [memoContent.trim()], (err) => {
+        this.database.run(MEMO_INSERTION, [memoContent.trim()], (err) => {
           if (err) {
             return reject(
               new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}`),
@@ -98,7 +98,7 @@ export class MemoApp {
     await handleMemoAction(
       this,
       READ_MEMO_LOG_MESSAGES.PROMPT,
-      SELECT_MEMO_BY_ID,
+      MEMO_SELECTION_BY_ID,
       (row, app) => {
         logMessage(`\n${row.memo}\n`);
         const memoIndex = app.memos.findIndex((memo) => memo.id === row.id);
@@ -115,7 +115,7 @@ export class MemoApp {
     await handleMemoAction(
       this,
       DELETE_MEMO_LOG_MESSAGES.PROMPT,
-      DELETE_MEMO_BY_ID,
+      MEMO_DELETION_BY_ID,
       (result, app) => {
         app.memos = app.memos.filter((memo) => memo.id !== result.id);
         logMessage(DELETE_MEMO_LOG_MESSAGES.SUCCESS);

@@ -1,5 +1,5 @@
-export const CREATE_MEMOS_TABLE = `CREATE TABLE IF NOT EXISTS memos (id INTEGER PRIMARY KEY AUTOINCREMENT, memo TEXT)`;
-export const INSERT_MEMO = `INSERT INTO memos (memo) VALUES (?)`;
-export const SELECT_ALL_MEMOS = `SELECT id, memo FROM memos`;
-export const SELECT_MEMO_BY_ID = `SELECT * FROM memos WHERE id = ?`;
-export const DELETE_MEMO_BY_ID = `DELETE FROM memos WHERE id = ?`;
+export const MEMOS_TABLE_CREATION = `CREATE TABLE IF NOT EXISTS memos (id INTEGER PRIMARY KEY AUTOINCREMENT, memo TEXT)`;
+export const MEMO_INSERTION = `INSERT INTO memos (memo) VALUES (?)`;
+export const ALL_MEMOS_SELECTION = `SELECT id, memo FROM memos`;
+export const MEMO_SELECTION_BY_ID = `SELECT * FROM memos WHERE id = ?`;
+export const MEMO_DELETION_BY_ID = `DELETE FROM memos WHERE id = ?`;

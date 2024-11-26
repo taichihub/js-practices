@@ -2,7 +2,7 @@
 import sqlite3 from "sqlite3";
 
 // プロジェクト内からのインポート
-import { CREATE_MEMOS_TABLE } from "./queries.js";
+import { MEMOS_TABLE_CREATION } from "./queries.js";
 import { DATABASE_LOG_MESSAGES } from "../config/log.js";
 import { DATABASE_PATH } from "../config/settings.js";
 
@@ -36,7 +36,7 @@ export class MemoDatabase {
 
   #createMemosTable() {
     return new Promise((resolve, reject) => {
-      this.db.run(CREATE_MEMOS_TABLE, (err) => {
+      this.db.run(MEMOS_TABLE_CREATION, (err) => {
         if (err) {
           reject(err);
         } else {
