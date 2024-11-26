@@ -20,6 +20,7 @@ try {
     await run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
   } catch (err) {
     if (
+      err.errno === 19 &&
       String(err).includes(
         "SQLITE_CONSTRAINT: UNIQUE constraint failed: books.title",
       )
