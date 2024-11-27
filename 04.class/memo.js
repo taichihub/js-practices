@@ -5,12 +5,9 @@ import { MemoApp } from "./memoApp.js";
 import { OPTIONS } from "./config/settings.js";
 
 async function main() {
-  const DBInstance = new MemoDatabase();
-  await DBInstance.connect();
-  const database = DBInstance.databaseConnection;
-
-  const memoApp = new MemoApp(database);
-  await memoApp.initializeMemos();
+  const memoDatabase = new MemoDatabase();
+  await memoDatabase.connect();
+  const memoApp = new MemoApp(memoDatabase);
   const args = process.argv.slice(2);
 
   switch (args[0]) {

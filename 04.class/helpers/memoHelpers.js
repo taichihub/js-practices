@@ -2,40 +2,11 @@
 import inquirer from "inquirer";
 
 // プロジェクト内からのインポート
-import { COMMON_LOG_MESSAGES, logMessage, logError } from "../config/log.js";
-
-export async function handleMemoAction(
-  app,
-  promptMessage,
-  query,
-  successCallback,
-) {
-  try {
-    const selectedMemoId = await selectMemo(app, promptMessage);
-
-    if (selectedMemoId) {
-      const result = await new Promise((resolve, reject) => {
-        app.database.get(query, [selectedMemoId], (err, row) => {
-          if (err) {
-            reject(new Error(`${COMMON_LOG_MESSAGES.ERROR}${err.message}\n`));
-          } else {
-            resolve(row);
-          }
-        });
-      });
-
-      if (result) {
-        successCallback(result, app);
-      }
-    }
-  } catch (error) {
-    logError(`${COMMON_LOG_MESSAGES.ERROR}${error.message}\n`);
-  }
-}
+import { logMessage } from "../config/log.js";
 
 export async function selectMemo(app, message) {
   try {
-    const memos = app.memos;
+    const memos = await app.database.fetchAllMemos();
     checkIfEmpty(memos, logMessage);
     const choices = memos.map((memo) => ({
       name: memo.memo.split("\n")[0],
