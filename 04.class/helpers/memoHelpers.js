@@ -1,9 +1,9 @@
 import inquirer from "inquirer";
 import { logMessage } from "../config/log.js";
 
-export async function selectMemo(app, message) {
+export async function selectMemo(database, message) {
   try {
-    const memos = await app.database.fetchAllMemos();
+    const memos = await database.fetchAllMemos();
     checkIfEmpty(memos, logMessage);
     const choices = memos.map((memo) => ({
       name: memo.memo.split("\n")[0],
