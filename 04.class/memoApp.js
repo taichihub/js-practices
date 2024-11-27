@@ -14,8 +14,10 @@ import { stdin as input, stdout as output } from "process";
 import { FILE_ENCODING } from "./config/settings.js";
 
 export class MemoApp {
+  #database;
+
   constructor(memoDatabase) {
-    this.database = memoDatabase;
+    this.#database = memoDatabase;
   }
 
   addMemo(content = []) {
@@ -40,7 +42,7 @@ export class MemoApp {
 
   async saveMemo(content) {
     try {
-      await this.database.insertMemo(content.trim());
+      await this.#database.insertMemo(content.trim());
       logMessage(ADD_MEMO_LOG_MESSAGES.SUCCESS);
     } catch (error) {
       logError(error.message);
@@ -49,7 +51,7 @@ export class MemoApp {
 
   async listMemos() {
     try {
-      const memos = await this.database.fetchAllMemos();
+      const memos = await this.#database.fetchAllMemos();
       if (memos.length === 0) {
         return logMessage(LIST_MEMOS_LOG_MESSAGES.NOT_FOUND);
       }
@@ -70,7 +72,7 @@ export class MemoApp {
       );
       if (selectedMemoId) {
         try {
-          const memo = await this.database.fetchMemoById(selectedMemoId);
+          const memo = await this.#database.fetchMemoById(selectedMemoId);
           if (memo) {
             logMessage(memo.memo);
           } else {
@@ -92,8 +94,8 @@ export class MemoApp {
     );
     if (selectedMemoId) {
       try {
-        const memo = await this.database.fetchMemoById(selectedMemoId);
-        await this.database.deleteMemoById(selectedMemoId);
+        const memo = await this.#database.fetchMemoById(selectedMemoId);
+        await this.#database.deleteMemoById(selectedMemoId);
         logMessage(`${memo.memo}\n${DELETE_MEMO_LOG_MESSAGES.SUCCESS}`);
       } catch (error) {
         logError(error.message);
