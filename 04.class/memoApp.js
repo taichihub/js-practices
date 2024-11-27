@@ -20,12 +20,13 @@ export class MemoApp {
     this.#database = memoDatabase;
   }
 
-  addMemo(content = []) {
+  addMemo() {
     if (!input.isTTY) {
       const inputContent = readFileSync(0, FILE_ENCODING);
       this.saveMemo(inputContent);
     } else {
       const rl = createInterface({ input, output });
+      let content = [];
       logMessage(ADD_MEMO_LOG_MESSAGES.PROMPT);
 
       rl.on("line", (line) => {
