@@ -1,7 +1,4 @@
-// 外部ライブラリ
 import sqlite3 from "sqlite3";
-
-// プロジェクト内からのインポート
 import { MEMOS_TABLE_CREATION } from "./queries.js";
 import { DATABASE_LOG_MESSAGES } from "../config/log.js";
 import { DATABASE_PATH } from "../config/settings.js";

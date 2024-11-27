@@ -1,7 +1,4 @@
-// 外部ライブラリ
 import inquirer from "inquirer";
-
-// プロジェクト内からのインポート
 import { logMessage } from "../config/log.js";
 
 export async function selectMemo(app, message) {
