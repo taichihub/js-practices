@@ -10,13 +10,15 @@ import {
 } from "./queries.js";
 
 export class MemoDatabase {
+  #database;
+
   constructor() {
-    this.db = null;
+    this.#database = null;
   }
 
   async connect() {
     try {
-      this.db = await this.#openDatabase(DATABASE_PATH);
+      this.#database = await this.#openDatabase(DATABASE_PATH);
       await this.#createMemosTable();
     } catch (err) {
       console.error(
@@ -39,7 +41,7 @@ export class MemoDatabase {
 
   #createMemosTable() {
     return new Promise((resolve, reject) => {
-      this.db.run(MEMOS_TABLE_CREATION, (err) => {
+      this.#database.run(MEMOS_TABLE_CREATION, (err) => {
         if (err) {
           reject(err);
         } else {
@@ -51,7 +53,7 @@ export class MemoDatabase {
 
   async insertMemo(content) {
     return new Promise((resolve, reject) => {
-      this.db.run(MEMO_INSERTION, [content], (err) => {
+      this.#database.run(MEMO_INSERTION, [content], (err) => {
         if (err) {
           reject(err);
         } else {
@@ -63,7 +65,7 @@ export class MemoDatabase {
 
   async fetchAllMemos() {
     return new Promise((resolve, reject) => {
-      this.db.all(ALL_MEMOS_SELECTION, (err, rows) => {
+      this.#database.all(ALL_MEMOS_SELECTION, (err, rows) => {
         if (err) {
           reject(err);
         } else {
@@ -75,7 +77,7 @@ export class MemoDatabase {
 
   async fetchMemoById(id) {
     return new Promise((resolve, reject) => {
-      this.db.get(MEMO_SELECTION_BY_ID, [id], (err, row) => {
+      this.#database.get(MEMO_SELECTION_BY_ID, [id], (err, row) => {
         if (err) {
           reject(err);
         } else {
@@ -87,7 +89,7 @@ export class MemoDatabase {
 
   async deleteMemoById(id) {
     return new Promise((resolve, reject) => {
-      this.db.run(MEMO_DELETION_BY_ID, [id], (err) => {
+      this.#database.run(MEMO_DELETION_BY_ID, [id], (err) => {
         if (err) {
           reject(err);
         } else {
