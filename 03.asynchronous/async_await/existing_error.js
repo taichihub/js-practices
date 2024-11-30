@@ -12,15 +12,16 @@ try {
   );
   console.log("テーブルが作成されました。");
 
+  const title = "Node.js入門";
   try {
     const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
-      "Node.js入門",
+      title,
     ]);
     console.log(`行が追加されました。id: ${result.lastID}`);
-    await run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
+    await run(db, "INSERT INTO books (title) VALUES (?)", [title]);
   } catch (err) {
     if (
-      err.errno === 19 &&
+      title === "Node.js入門" &&
       String(err).includes(
         "SQLITE_CONSTRAINT: UNIQUE constraint failed: books.title",
       )
