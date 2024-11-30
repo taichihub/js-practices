@@ -4,7 +4,7 @@ import { createDatabase, run, all, close } from "../db_operations.js";
 
 let db;
 
-createDatabase()
+createDatabase(":memory:")
   .then((resolvedDB) => {
     console.log("メモリ内のSQLiteデータベースに接続しました。");
     db = resolvedDB;

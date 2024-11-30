@@ -1,8 +1,8 @@
 import sqlite3 from "sqlite3";
 
-export const createDatabase = () => {
+export function createDatabase(path) {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(":memory:", (err) => {
+    const db = new sqlite3.Database(path, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -10,7 +10,7 @@ export const createDatabase = () => {
       }
     });
   });
-};
+}
 
 export function run(db, sql, params) {
   return new Promise((resolve, reject) => {
