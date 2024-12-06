@@ -21,7 +21,9 @@ createDatabase(":memory:")
   })
   .then((result) => {
     console.log(`行が追加されました。id: ${result.lastID}`);
-    return run(db, "INSERT INTO books (title) VALUES (?)", ["Node.js入門"]);
+    return run(db, "INSERT INTO books (nonexistent_column) VALUES (?)", [
+      "Node.js入門",
+    ]);
   })
   .catch((err) => {
     console.error(`エラーが発生しました: ${err.message}`);

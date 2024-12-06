@@ -12,21 +12,20 @@ try {
   );
   console.log("テーブルが作成されました。");
 
-  const title = "Node.js入門";
   try {
     const result = await run(db, "INSERT INTO books (title) VALUES (?)", [
-      title,
+      "Node.js入門",
     ]);
     console.log(`行が追加されました。id: ${result.lastID}`);
-    await run(db, "INSERT INTO books (title) VALUES (?)", [title]);
+    await run(db, "INSERT INTO books (nonexistent_column) VALUES (?)", [
+      "Node.js入門",
+    ]);
   } catch (err) {
-    if (
-      title === "Node.js入門" &&
-      String(err).includes(
-        "SQLITE_CONSTRAINT: UNIQUE constraint failed: books.title",
-      )
-    ) {
-      console.error(`エラーが発生しました: ${String(err)}`);
+    const columnError = err.message.match(
+      /SQLITE_ERROR: table books has no column named (\w+)/,
+    );
+    if (columnError) {
+      console.error(`エラーが発生しました: ${columnError[0]}`);
     } else {
       throw err;
     }

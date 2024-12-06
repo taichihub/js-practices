@@ -17,7 +17,7 @@ const db = new sqlite3.Database(":memory:", () => {
           console.log(`行が追加されました。id: ${this.lastID}`);
 
           db.run(
-            "INSERT INTO books (title) VALUES (?)",
+            "INSERT INTO books (nonexistent_column) VALUES (?)",
             ["Node.js入門"],
             (err) => {
               if (err) {
