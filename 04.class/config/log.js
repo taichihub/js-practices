@@ -28,7 +28,6 @@ export const LIST_MEMOS_LOG_MESSAGES = {
 export const READ_MEMO_LOG_MESSAGES = {
   PROMPT: "表示するメモを選んでください:",
   NOT_FOUND: "メモが見つかりません。\n",
-  FETCH_ERROR: "メモの取得中にエラーが発生しました: ",
 };
 
 export const DELETE_MEMO_LOG_MESSAGES = {
