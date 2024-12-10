@@ -7,12 +7,10 @@ export async function readMemo(database) {
     READ_MEMO_LOG_MESSAGES.PROMPT,
   );
 
-  if (selectedMemoId) {
-    const memo = await database.fetchMemoById(selectedMemoId);
-    if (memo) {
-      process.stdout.write(memo.memo);
-    } else {
-      process.stdout.write(READ_MEMO_LOG_MESSAGES.NOT_FOUND);
-    }
+  const memo = await database.fetchMemoById(selectedMemoId);
+  if (memo) {
+    process.stdout.write(memo.memo);
+  } else {
+    process.stdout.write(READ_MEMO_LOG_MESSAGES.NOT_FOUND);
   }
 }
