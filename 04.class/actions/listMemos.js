@@ -2,7 +2,7 @@ import { LIST_MEMOS_LOG_MESSAGES } from "../config/log.js";
 
 export async function listMemos(database) {
   const memos = await database.fetchAllMemos();
-  if (!memos || memos.length === 0) {
+  if (memos.length === 0) {
     return process.stdout.write(LIST_MEMOS_LOG_MESSAGES.NOT_FOUND);
   }
 
