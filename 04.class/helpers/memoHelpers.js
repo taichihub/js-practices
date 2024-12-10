@@ -14,8 +14,8 @@ export async function selectMemo(database, message) {
       {
         type: "list",
         name: "selectedMemo",
-        message: message,
-        choices: choices,
+        message,
+        choices,
       },
     ]);
 
