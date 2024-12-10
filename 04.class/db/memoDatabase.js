@@ -32,30 +32,6 @@ export class MemoDatabase {
     }
   }
 
-  #openDatabase(path) {
-    return new Promise((resolve, reject) => {
-      const db = new sqlite3.Database(path, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(db);
-        }
-      });
-    });
-  }
-
-  #createMemosTable() {
-    return new Promise((resolve, reject) => {
-      this.#database.run(this.#queries.MEMOS_TABLE_CREATION, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
-  }
-
   async insertMemo(content) {
     return new Promise((resolve, reject) => {
       this.#database.run(this.#queries.MEMO_INSERTION, [content], (err) => {
@@ -99,6 +75,30 @@ export class MemoDatabase {
   async deleteMemoById(id) {
     return new Promise((resolve, reject) => {
       this.#database.run(this.#queries.MEMO_DELETION_BY_ID, [id], (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+  }
+
+  #openDatabase(path) {
+    return new Promise((resolve, reject) => {
+      const db = new sqlite3.Database(path, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(db);
+        }
+      });
+    });
+  }
+
+  #createMemosTable() {
+    return new Promise((resolve, reject) => {
+      this.#database.run(this.#queries.MEMOS_TABLE_CREATION, (err) => {
         if (err) {
           reject(err);
         } else {
