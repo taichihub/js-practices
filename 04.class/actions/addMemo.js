@@ -18,10 +18,10 @@ export async function addMemo(database) {
 function getInputLines(input, output) {
   return new Promise((resolve, reject) => {
     const rl = createInterface({ input, output });
-    const content = [];
+    const contents = [];
 
-    rl.on("line", (line) => content.push(line));
-    rl.on("close", () => resolve(content));
+    rl.on("line", (line) => contents.push(line));
+    rl.on("close", () => resolve(contents));
     rl.on("error", (err) => reject(err));
   });
 }
