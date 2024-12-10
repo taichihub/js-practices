@@ -15,9 +15,20 @@ export class MemoDatabase {
   async connect() {
     try {
       this.#database = await this.#openDatabase(this.#databasePath);
+    } catch (err) {
+      console.error(
+        `${this.#logMessages.CONNECTION_ERROR}(openDatabase) ${err.message}\n`,
+      );
+      return;
+    }
+
+    try {
       await this.#createMemosTable();
     } catch (err) {
-      console.error(`${this.#logMessages.CONNECTION_ERROR}${err.message}\n`);
+      console.error(
+        `${this.#logMessages.CONNECTION_ERROR}(createMemosTable) ${err.message}\n`,
+      );
+      return;
     }
   }
 
