@@ -1,4 +1,4 @@
-import { READ_MEMO_LOG_MESSAGES, logMessage, logError } from "../config/log.js";
+import { READ_MEMO_LOG_MESSAGES } from "../config/log.js";
 import { selectMemo } from "../helpers/memoHelpers.js";
 
 export async function readMemo(database) {
@@ -11,12 +11,12 @@ export async function readMemo(database) {
     if (selectedMemoId) {
       const memo = await database.fetchMemoById(selectedMemoId);
       if (memo) {
-        logMessage(memo.memo);
+        process.stdout.write(memo.memo);
       } else {
-        logMessage(READ_MEMO_LOG_MESSAGES.NOT_FOUND);
+        process.stdout.write(READ_MEMO_LOG_MESSAGES.NOT_FOUND);
       }
     }
   } catch (err) {
-    logError(`${READ_MEMO_LOG_MESSAGES.FETCH_ERROR}${err.message}`);
+    process.stderr.write(`${READ_MEMO_LOG_MESSAGES.FETCH_ERROR}${err.message}`);
   }
 }

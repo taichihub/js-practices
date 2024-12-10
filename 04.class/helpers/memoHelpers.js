@@ -1,10 +1,10 @@
 import inquirer from "inquirer";
-import { logMessage } from "../config/log.js";
 
 export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
-    checkIfEmpty(memos, logMessage);
+    checkIfEmpty(memos, message);
+
     const choices = memos.map((memo) => ({
       name: memo.memo.split("\n")[0],
       value: memo.id,
@@ -25,9 +25,9 @@ export async function selectMemo(database, message) {
   }
 }
 
-export function checkIfEmpty(array, logMessage, message) {
+export function checkIfEmpty(array, message) {
   if (array.length === 0) {
-    logMessage(message);
+    process.stdout.write(message);
     process.exit(1);
   }
 }

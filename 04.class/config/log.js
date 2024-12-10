@@ -1,11 +1,3 @@
-export function logMessage(message) {
-  process.stdout.write(message);
-}
-
-export function logError(message) {
-  process.stderr.write(message);
-}
-
 export const COMMON_LOG_MESSAGES = {
   ERROR: "エラー: ",
 };
