@@ -1,12 +1,12 @@
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
 import { ADD_MEMO_LOG_MESSAGES } from "../config/log.js";
-import { checkIfEmpty } from "../helpers/memoHelpers.js";
+import { ensureNotEmpty } from "../helpers/memoHelpers.js";
 
 export async function addMemo(database) {
   try {
     const content = await getInputLines(input, output);
-    checkIfEmpty(content, ADD_MEMO_LOG_MESSAGES.EMPTY);
+    ensureNotEmpty(content, ADD_MEMO_LOG_MESSAGES.EMPTY);
     const memoContent = content.join("\n");
     await database.insertMemo(memoContent.trim());
     process.stdout.write(`${ADD_MEMO_LOG_MESSAGES.SUCCESS}`);

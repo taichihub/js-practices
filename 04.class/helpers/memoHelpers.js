@@ -3,7 +3,7 @@ import inquirer from "inquirer";
 export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
-    checkIfEmpty(memos, message);
+    ensureNotEmpty(memos, message);
 
     const choices = memos.map((memo) => ({
       name: memo.memo.split("\n")[0],
@@ -25,7 +25,7 @@ export async function selectMemo(database, message) {
   }
 }
 
-export function checkIfEmpty(array, message) {
+export function ensureNotEmpty(array, message) {
   if (array.length === 0) {
     process.stdout.write(message);
     process.exit(1);
