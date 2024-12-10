@@ -33,9 +33,6 @@ export const READ_MEMO_LOG_MESSAGES = {
 export const DELETE_MEMO_LOG_MESSAGES = {
   PROMPT: "削除するメモを選んでください:",
   SUCCESS: "メモを削除しました。\n",
-  NOT_FOUND: "削除するメモが見つかりません。\n",
-  FETCH_ERROR: "メモの取得中にエラーが発生しました: ",
-  DELETE_ERROR: "メモの削除中にエラーが発生しました: ",
 };
 
 export const MEMO_HELPERS_LOG_MESSAGES = {
