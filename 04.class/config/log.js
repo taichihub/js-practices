@@ -22,7 +22,6 @@ export const ADD_MEMO_LOG_MESSAGES = {
 export const LIST_MEMOS_LOG_MESSAGES = {
   TITLE: "メモ一覧:\n",
   NOT_FOUND: "メモが存在しません。\n",
-  FETCH_ERROR: "メモの取得中にエラーが発生しました: ",
   SHOW_ERROR: "メモの表示中にエラーが発生しました: ",
 };
 
