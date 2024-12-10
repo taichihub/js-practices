@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 
 export class MemoDatabase {
-  #database;
+  #database = null;
   #databasePath;
   #queries;
   #logMessages;
@@ -10,7 +10,6 @@ export class MemoDatabase {
     this.#databasePath = databasePath;
     this.#queries = queries;
     this.#logMessages = logMessages;
-    this.#database = null;
   }
 
   async connect() {
