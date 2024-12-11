@@ -4,14 +4,29 @@ import { ADD_MEMO_LOG_MESSAGES } from "../config/log.js";
 import { ensureNotEmpty } from "../helpers/memoHelpers.js";
 
 export async function addMemo(database) {
+  let content;
+
   try {
-    const content = await getInputLines(input, output);
+    content = await getInputLines(input, output);
+  } catch (err) {
+    process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.INPUT_ERROR} ${err.message}`);
+    return;
+  }
+
+  try {
     ensureNotEmpty(content, ADD_MEMO_LOG_MESSAGES.EMPTY);
-    const memoContent = content.join("\n");
-    await database.insertMemo(memoContent.trim());
+  } catch (err) {
+    process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.EMPTY_ERROR} ${err.message}`);
+    return;
+  }
+
+  const memoContent = content.join("\n").trim();
+
+  try {
+    await database.insertMemo(memoContent);
     process.stdout.write(`${ADD_MEMO_LOG_MESSAGES.SUCCESS}`);
   } catch (err) {
-    process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.SAVE_ERROR}${err.message}`);
+    process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.SAVE_ERROR} ${err.message}`);
   }
 }
 
