@@ -13,12 +13,7 @@ export async function addMemo(database) {
     return;
   }
 
-  try {
-    ensureNotEmpty(content, ADD_MEMO_LOG_MESSAGES.EMPTY);
-  } catch (err) {
-    process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.EMPTY_ERROR} ${err.message}`);
-    return;
-  }
+  ensureNotEmpty(content, ADD_MEMO_LOG_MESSAGES.EMPTY);
 
   const memoContent = content.join("\n").trim();
 
