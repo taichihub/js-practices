@@ -5,6 +5,10 @@ import { MEMO_HELPERS_LOG_MESSAGES } from "../config/log.js";
 export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
+    if (memos.length === 0) {
+      process.stdout.write(MEMO_HELPERS_LOG_MESSAGES.NOT_FOUND);
+      process.exit(0);
+    }
     ensureNotEmpty(memos, message);
 
     const choices = memos.map((memo) => ({
