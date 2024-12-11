@@ -37,5 +37,5 @@ export const DELETE_MEMO_LOG_MESSAGES = {
 };
 
 export const MEMO_HELPERS_LOG_MESSAGES = {
-  NO_MEMOS: "メモが存在しません。\n",
+  SIGINT_OR_EOF_RECEIVED: "Ctrl+C/Dが入力された為処理を終了させました",
 };

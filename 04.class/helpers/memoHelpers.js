@@ -1,4 +1,6 @@
 import inquirer from "inquirer";
+import { ExitPromptError } from "@inquirer/core";
+import { MEMO_HELPERS_LOG_MESSAGES } from "../config/log.js";
 
 export async function selectMemo(database, message) {
   try {
@@ -21,7 +23,11 @@ export async function selectMemo(database, message) {
 
     return answer.selectedMemo;
   } catch (error) {
-    throw new Error(error.message);
+    if (error instanceof ExitPromptError) {
+      process.stdout.write(MEMO_HELPERS_LOG_MESSAGES.SIGINT_OR_EOF_RECEIVED);
+      process.exit(0);
+    }
+    throw new Error(error);
   }
 }
 
