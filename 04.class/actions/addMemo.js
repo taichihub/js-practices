@@ -22,6 +22,7 @@ export async function addMemo(database) {
     process.stdout.write(`${ADD_MEMO_LOG_MESSAGES.SUCCESS}`);
   } catch (err) {
     process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.SAVE_ERROR} ${err.message}`);
+    return;
   }
 }
 
