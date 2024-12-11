@@ -10,13 +10,14 @@ export const DATABASE_LOG_MESSAGES = {
 
 export const ADD_MEMO_LOG_MESSAGES = {
   PROMPT:
-    "メモの内容を入力してください（終了するにはCtrl + Dを押してください）:\n",
+    "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:\n",
   EMPTY: "メモの内容が空です。保存されませんでした。\n",
   SUCCESS: "メモを追加しました。\n",
   STDIN_ERROR: "標準入力でエラーが発生しました: ",
   SAVE_ERROR: "メモの保存処理中にエラーが発生しました: ",
   INPUT_ERROR: "入力中にエラーが発生しました: ",
   INSERT_ERROR: "データベースへのインサート処理中にエラーが発生しました: ",
+  SIGINT_RECEIVED: "Ctrl+Cが入力された為メモの作成を中止しました\n",
 };
 
 export const LIST_MEMOS_LOG_MESSAGES = {

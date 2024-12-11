@@ -7,6 +7,7 @@ export async function addMemo(database) {
   let content;
 
   try {
+    process.stdout.write(ADD_MEMO_LOG_MESSAGES.PROMPT);
     content = await getInputLines(input, output);
   } catch (err) {
     process.stderr.write(`${ADD_MEMO_LOG_MESSAGES.INPUT_ERROR} ${err.message}`);
@@ -28,9 +29,13 @@ export async function addMemo(database) {
 
 function getInputLines(input, output) {
   return new Promise((resolve, reject) => {
-    const rl = createInterface({ input, output });
+    const rl = createInterface({ input, output, terminal: true });
     const contents = [];
 
+    rl.on("SIGINT", () => {
+      process.stdout.write(ADD_MEMO_LOG_MESSAGES.SIGINT_RECEIVED);
+      process.exit(0);
+    });
     rl.on("line", (line) => contents.push(line));
     rl.on("close", () => resolve(contents));
     rl.on("error", (err) => reject(err));
