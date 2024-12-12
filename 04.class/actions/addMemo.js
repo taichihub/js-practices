@@ -31,7 +31,7 @@ export async function addMemo(database) {
 
 function getInputLines(input, output) {
   return new Promise((resolve, reject) => {
-    const rl = createInterface({ input, output, terminal: false });
+    const rl = createInterface({ input, output, terminal: true });
     const contents = [];
 
     rl.on("SIGINT", () => {

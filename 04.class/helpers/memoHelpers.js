@@ -35,9 +35,10 @@ export async function selectMemo(database, message) {
   }
 }
 
-export function ensureNotEmpty(array, message) {
-  if (array.length === 0) {
+export function ensureNotEmpty(contents, message) {
+  const isBlank = contents.every((content) => /^\s*$/.test(content));
+  if (isBlank) {
     process.stdout.write(message);
-    process.exit(1);
+    process.exit(0);
   }
 }
