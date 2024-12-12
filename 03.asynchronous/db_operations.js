@@ -1,8 +1,8 @@
 import sqlite3 from "sqlite3";
 
-export function createDatabase(path) {
+export function createDatabase(filename) {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(path, (err) => {
+    const db = new sqlite3.Database(filename, (err) => {
       if (err) {
         reject(err);
       } else {
