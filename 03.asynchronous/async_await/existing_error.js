@@ -21,12 +21,11 @@ try {
     await run(db, "INSERT INTO books (title) VALUES (?)", [title]);
   } catch (err) {
     if (
-      title === "Node.js入門" &&
-      String(err).includes(
-        "SQLITE_CONSTRAINT: UNIQUE constraint failed: books.title",
-      )
+      err instanceof Error &&
+      err.code === "SQLITE_CONSTRAINT" &&
+      err.message.includes("UNIQUE constraint failed")
     ) {
-      console.error(`エラーが発生しました: ${String(err)}`);
+      console.error(`エラーが発生しました: ${err.message}`);
     } else {
       throw err;
     }
