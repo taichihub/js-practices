@@ -35,7 +35,9 @@ try {
     await all(db, "SELECT * FROM nonexistent_table WHERE id = ?", [-1]);
   } catch (err) {
     if (
-      String(err).includes("SQLITE_ERROR: no such table: nonexistent_table")
+      err instanceof Error &&
+      err.code === "SQLITE_ERROR" &&
+      err.message.includes("no such table")
     ) {
       console.error(`エラーが発生しました: ${err.message}`);
     } else {
