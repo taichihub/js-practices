@@ -7,8 +7,8 @@ export async function addMemo(database) {
 
   try {
     if (process.stdin.isTTY) {
-      process.stdout.write(
-        "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:\n",
+      console.log(
+        "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:",
       );
     }
     content = await getInputLines(input, output);
@@ -27,10 +27,10 @@ export async function addMemo(database) {
 
   try {
     await database.insertMemo(memoContent);
-    process.stdout.write("メモを追加しました。\n");
+    console.log("メモを追加しました。");
   } catch (err) {
     process.stderr.write(
-      `メモの保存処理中にエラーが発生しました: " ${err.message}`,
+      `メモの保存処理中にエラーが発生しました: "${err.message}`,
     );
     return;
   }
@@ -42,7 +42,7 @@ function getInputLines(input, output) {
     const contents = [];
 
     rl.on("SIGINT", () => {
-      process.stdout.write("Ctrl+Cが入力された為メモの作成を中止しました\n");
+      console.log("Ctrl+Cが入力された為メモの作成を中止しました");
       process.exit(0);
     });
     rl.on("line", (line) => contents.push(line));

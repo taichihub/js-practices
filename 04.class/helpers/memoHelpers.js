@@ -5,7 +5,7 @@ export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
     if (memos.length === 0) {
-      return process.stdout.write("メモが存在しません。\n");
+      return console.log("メモが存在しません。");
     }
     ensureNotEmpty(memos);
 

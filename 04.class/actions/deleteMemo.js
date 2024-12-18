@@ -15,5 +15,5 @@ export async function deleteMemo(database) {
   if (!memo) return;
 
   await database.deleteMemoById(selectedMemoId);
-  process.stdout.write(`${memo.content}\nメモを削除しました。\n`);
+  console.log(`${memo.content}\nメモを削除しました。`);
 }
