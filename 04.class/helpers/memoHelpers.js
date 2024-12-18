@@ -7,7 +7,7 @@ export async function selectMemo(database, message) {
     if (memos.length === 0) {
       return process.stdout.write("メモが存在しません。\n");
     }
-    ensureNotEmpty(memos, message);
+    ensureNotEmpty(memos);
 
     const choices = memos.map((memo) => ({
       name: memo.content.split("\n")[0],
@@ -26,15 +26,14 @@ export async function selectMemo(database, message) {
     return answer.selectedMemo;
   } catch (error) {
     if (error instanceof ExitPromptError) {
-      return process.stdout.write("Ctrl+C/Dが入力された為処理を終了させました");
+      throw new Error("Ctrl+C/Dが入力された為処理を終了させました");
     }
-    throw new Error(error);
   }
 }
 
-export function ensureNotEmpty(contents, message) {
+export function ensureNotEmpty(contents) {
   const isBlank = contents.every((content) => /^\s*$/.test(content));
   if (isBlank) {
-    return process.stdout.write(message);
+    throw new Error("メモの内容が空です。\n");
   }
 }

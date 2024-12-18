@@ -17,7 +17,11 @@ export async function addMemo(database) {
     return;
   }
 
-  ensureNotEmpty(content, "メモの内容が空です。保存されませんでした。\n");
+  try {
+    ensureNotEmpty(content);
+  } catch (err) {
+    return process.stdout.write(err.message);
+  }
 
   const memoContent = content.join("\n").trim();
 
