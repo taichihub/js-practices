@@ -2,11 +2,6 @@ export const COMMON_LOG_MESSAGES = {
   ERROR: "エラー: ",
 };
 
-export const DATABASE_LOG_MESSAGES = {
-  CONNECTION_ERROR: "データベース接続エラー: ",
-  SUCCESS: "データベースのセットアップが完了しました。\n",
-};
-
 export const ADD_MEMO_LOG_MESSAGES = {
   PROMPT:
     "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:\n",

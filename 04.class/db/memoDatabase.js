@@ -3,63 +3,62 @@ import sqlite3 from "sqlite3";
 export class MemoDatabase {
   #database = null;
   #databasePath;
-  #queries;
-  #logMessages;
 
-  constructor({ databasePath, queries, logMessages }) {
+  constructor({ databasePath = "db/memo.db" }) {
     this.#databasePath = databasePath;
-    this.#queries = queries;
-    this.#logMessages = logMessages;
   }
 
   async connect() {
     try {
       this.#database = await this.#openDatabase(this.#databasePath);
     } catch (err) {
-      console.error(
-        `${this.#logMessages.CONNECTION_ERROR}(openDatabase) ${err.message}\n`,
-      );
+      console.error(`データベース接続エラー(openDatabase): ${err.message}`);
       return;
     }
 
     try {
       await this.#createMemosTable();
     } catch (err) {
-      console.error(
-        `${this.#logMessages.CONNECTION_ERROR}(createMemosTable) ${err.message}\n`,
-      );
+      console.error(`データベース接続エラー(createMemosTable): ${err.message}`);
       return;
     }
   }
 
   async insertMemo(content) {
     return new Promise((resolve, reject) => {
-      this.#database.run(this.#queries.MEMO_INSERTION, [content], (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
+      this.#database.run(
+        "INSERT INTO memos (memo) VALUES (?)",
+        [content],
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        },
+      );
     });
   }
 
   async fetchAllMemos() {
     return new Promise((resolve, reject) => {
-      this.#database.all(this.#queries.ALL_MEMOS_SELECTION, (err, rows) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(rows);
-        }
-      });
+      this.#database.all(
+        "SELECT * FROM memos ORDER BY id DESC",
+        (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        },
+      );
     });
   }
 
   async fetchMemoById(id) {
     return new Promise((resolve, reject) => {
       this.#database.get(
-        this.#queries.MEMO_SELECTION_BY_ID,
+        "SELECT * FROM memos WHERE id = ?",
         [id],
         (err, row) => {
           if (err) {
@@ -74,7 +73,7 @@ export class MemoDatabase {
 
   async deleteMemoById(id) {
     return new Promise((resolve, reject) => {
-      this.#database.run(this.#queries.MEMO_DELETION_BY_ID, [id], (err) => {
+      this.#database.run("DELETE FROM memos WHERE id = ?", [id], (err) => {
         if (err) {
           reject(err);
         } else {
@@ -98,13 +97,16 @@ export class MemoDatabase {
 
   #createMemosTable() {
     return new Promise((resolve, reject) => {
-      this.#database.run(this.#queries.MEMOS_TABLE_CREATION, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
+      this.#database.run(
+        "CREATE TABLE IF NOT EXISTS memos (id INTEGER PRIMARY KEY AUTOINCREMENT, content TEXT NOT NULL)",
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        },
+      );
     });
   }
 }
