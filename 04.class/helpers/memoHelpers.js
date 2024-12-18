@@ -26,7 +26,8 @@ export async function selectMemo(database, message) {
     return answer.selectedMemo;
   } catch (error) {
     if (error instanceof ExitPromptError) {
-      throw new Error("Ctrl+C/Dが入力された為処理を終了させました");
+      process.stdout.write("Ctrl+C/Dが入力された為処理を終了させました");
+      process.exit(0);
     }
   }
 }
