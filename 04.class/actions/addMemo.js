@@ -1,6 +1,5 @@
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
-import { ensureNotEmpty } from "../helpers/memoHelpers.js";
 
 export async function addMemo(database) {
   let content;
@@ -17,10 +16,9 @@ export async function addMemo(database) {
     return;
   }
 
-  try {
-    ensureNotEmpty(content);
-  } catch (err) {
-    return process.stdout.write(err.message);
+  const isBlank = content.every((item) => /^\s*$/.test(item));
+  if (isBlank) {
+    return console.log("メモの内容が空です。");
   }
 
   const memoContent = content.join("\n").trim();

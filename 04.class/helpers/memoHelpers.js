@@ -30,10 +30,3 @@ export async function selectMemo(database, message) {
     }
   }
 }
-
-export function ensureNotEmpty(contents) {
-  const isBlank = contents.every((content) => /^\s*$/.test(content));
-  if (isBlank) {
-    throw new Error("メモの内容が空です。\n");
-  }
-}
