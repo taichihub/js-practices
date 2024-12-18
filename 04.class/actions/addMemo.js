@@ -39,14 +39,23 @@ function getInputLines(input, output) {
       output,
       terminal: input.isTTY ?? false,
     });
-    const contents = [];
+    const lines = [];
 
     rl.on("SIGINT", () => {
       console.log("Ctrl+Cが入力された為メモの作成を中止しました");
       process.exit(0);
     });
-    rl.on("line", (line) => contents.push(line));
-    rl.on("close", () => resolve(contents));
-    rl.on("error", (err) => reject(err));
+
+    rl.on("line", (line) => {
+      lines.push(line);
+    });
+
+    rl.on("close", () => {
+      resolve(lines);
+    });
+
+    rl.on("error", (err) => {
+      reject(err);
+    });
   });
 }
