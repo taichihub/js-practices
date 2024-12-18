@@ -12,7 +12,7 @@ export async function selectMemo(database, message) {
     ensureNotEmpty(memos, message);
 
     const choices = memos.map((memo) => ({
-      name: memo.memo.split("\n")[0],
+      name: memo.content.split("\n")[0],
       value: memo.id,
     }));
 

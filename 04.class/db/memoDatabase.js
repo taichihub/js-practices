@@ -27,7 +27,7 @@ export class MemoDatabase {
   async insertMemo(content) {
     return new Promise((resolve, reject) => {
       this.#database.run(
-        "INSERT INTO memos (memo) VALUES (?)",
+        "INSERT INTO memos (content) VALUES (?)",
         [content],
         (err) => {
           if (err) {

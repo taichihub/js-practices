@@ -8,5 +8,5 @@ export async function readMemo(database) {
   );
 
   const memo = await database.fetchMemoById(selectedMemoId);
-  process.stdout.write(memo.memo);
+  process.stdout.write(memo.content);
 }

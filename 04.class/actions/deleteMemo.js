@@ -9,5 +9,5 @@ export async function deleteMemo(database) {
 
   const memo = await database.fetchMemoById(selectedMemoId);
   await database.deleteMemoById(selectedMemoId);
-  process.stdout.write(`${memo.memo}\n${DELETE_MEMO_LOG_MESSAGES.SUCCESS}`);
+  process.stdout.write(`${memo.content}\n${DELETE_MEMO_LOG_MESSAGES.SUCCESS}`);
 }

@@ -9,7 +9,7 @@ export async function listMemos(database) {
 
   process.stdout.write(LIST_MEMOS_LOG_MESSAGES.TITLE);
   memos.forEach((memo) => {
-    const firstLine = memo.memo.split("\n")[0];
+    const firstLine = memo.content.split("\n")[0];
     process.stdout.write(`・${firstLine}\n`);
   });
 }
