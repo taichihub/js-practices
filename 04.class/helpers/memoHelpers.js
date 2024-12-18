@@ -11,7 +11,7 @@ export async function selectMemo(database, message) {
 
     const choices = memos.map((memo) => ({
       name: memo.content.split("\n")[0],
-      value: memo.id,
+      value: memo,
     }));
 
     const answer = await inquirer.prompt([

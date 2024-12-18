@@ -76,22 +76,6 @@ export class MemoDatabase {
     });
   }
 
-  fetchMemoById(id) {
-    return new Promise((resolve, reject) => {
-      this.#database.get(
-        "SELECT * FROM memos WHERE id = ?",
-        [id],
-        (err, row) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(row);
-          }
-        },
-      );
-    });
-  }
-
   deleteMemoById(id) {
     return new Promise((resolve, reject) => {
       this.#database.run("DELETE FROM memos WHERE id = ?", [id], (err) => {
