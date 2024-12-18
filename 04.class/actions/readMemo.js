@@ -14,5 +14,5 @@ export async function readMemo(database) {
   const memo = await database.fetchMemoById(selectedMemoId);
   if (!memo) return;
 
-  process.stdout.write(memo.content);
+  console.log(memo.content);
 }
