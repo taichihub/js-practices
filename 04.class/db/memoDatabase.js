@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 
 export class MemoDatabase {
-  #database = null;
+  #database;
   #databasePath;
 
   constructor({ databasePath = "db/memo.db" }) {
@@ -45,7 +45,7 @@ export class MemoDatabase {
     }
   }
 
-  async insertMemo(content) {
+  insertMemo(content) {
     return new Promise((resolve, reject) => {
       this.#database.run(
         "INSERT INTO memos (content) VALUES (?)",
@@ -61,7 +61,7 @@ export class MemoDatabase {
     });
   }
 
-  async fetchAllMemos() {
+  fetchAllMemos() {
     return new Promise((resolve, reject) => {
       this.#database.all(
         "SELECT * FROM memos ORDER BY id DESC",
@@ -76,7 +76,7 @@ export class MemoDatabase {
     });
   }
 
-  async fetchMemoById(id) {
+  fetchMemoById(id) {
     return new Promise((resolve, reject) => {
       this.#database.get(
         "SELECT * FROM memos WHERE id = ?",
@@ -92,7 +92,7 @@ export class MemoDatabase {
     });
   }
 
-  async deleteMemoById(id) {
+  deleteMemoById(id) {
     return new Promise((resolve, reject) => {
       this.#database.run("DELETE FROM memos WHERE id = ?", [id], (err) => {
         if (err) {
