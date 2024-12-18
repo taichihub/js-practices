@@ -5,8 +5,7 @@ export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
     if (memos.length === 0) {
-      process.stdout.write("メモが存在しません。\n");
-      process.exit(0);
+      return process.stdout.write("メモが存在しません。\n");
     }
     ensureNotEmpty(memos, message);
 
@@ -27,8 +26,7 @@ export async function selectMemo(database, message) {
     return answer.selectedMemo;
   } catch (error) {
     if (error instanceof ExitPromptError) {
-      process.stdout.write("Ctrl+C/Dが入力された為処理を終了させました");
-      process.exit(0);
+      return process.stdout.write("Ctrl+C/Dが入力された為処理を終了させました");
     }
     throw new Error(error);
   }
@@ -37,7 +35,6 @@ export async function selectMemo(database, message) {
 export function ensureNotEmpty(contents, message) {
   const isBlank = contents.every((content) => /^\s*$/.test(content));
   if (isBlank) {
-    process.stdout.write(message);
-    process.exit(0);
+    return process.stdout.write(message);
   }
 }
