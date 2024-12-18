@@ -1,12 +1,11 @@
 import inquirer from "inquirer";
 import { ExitPromptError } from "@inquirer/core";
-import { MEMO_HELPERS_LOG_MESSAGES } from "../config/log.js";
 
 export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAllMemos();
     if (memos.length === 0) {
-      process.stdout.write(MEMO_HELPERS_LOG_MESSAGES.NOT_FOUND);
+      process.stdout.write("メモが存在しません。\n");
       process.exit(0);
     }
     ensureNotEmpty(memos, message);
@@ -28,7 +27,7 @@ export async function selectMemo(database, message) {
     return answer.selectedMemo;
   } catch (error) {
     if (error instanceof ExitPromptError) {
-      process.stdout.write(MEMO_HELPERS_LOG_MESSAGES.SIGINT_OR_EOF_RECEIVED);
+      process.stdout.write("Ctrl+C/Dが入力された為処理を終了させました");
       process.exit(0);
     }
     throw new Error(error);
