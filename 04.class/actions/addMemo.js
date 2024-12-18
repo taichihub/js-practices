@@ -39,7 +39,6 @@ function getInputLines(input, output) {
       output,
       terminal: input.isTTY ?? false,
     });
-    console.log(rl.terminal);
     const contents = [];
 
     rl.on("SIGINT", () => {
