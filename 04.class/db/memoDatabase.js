@@ -12,14 +12,35 @@ export class MemoDatabase {
     try {
       this.#database = await this.#openDatabase(this.#databasePath);
     } catch (err) {
-      console.error(`データベース接続エラー(openDatabase): ${err.message}`);
+      switch (err.code) {
+        case "SQLITE_CANTOPEN":
+          console.error(
+            `データベースを開けません: (databasePath)${this.#databasePath}, (エラーメッセージ)${err.message}`,
+          );
+          break;
+        case "SQLITE_NOTADB":
+          console.error(
+            `データベースファイルではありません: (databasePath)${this.#databasePath}, (エラーメッセージ)${err.message}`,
+          );
+          break;
+        default:
+          console.error(`データベース接続エラー(openDatabase): ${err.message}`);
+      }
       return;
     }
 
     try {
       await this.#createMemosTable();
     } catch (err) {
-      console.error(`データベース接続エラー(createMemosTable): ${err.message}`);
+      switch (err.code) {
+        case "SQLITE_ERROR":
+          console.error(`SQLエラー: ${err.message}`);
+          break;
+        default:
+          console.error(
+            `データベース接続エラー(createMemosTable): ${err.message}`,
+          );
+      }
       return;
     }
   }
