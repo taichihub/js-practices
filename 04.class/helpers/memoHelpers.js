@@ -7,7 +7,6 @@ export async function selectMemo(database, message) {
     if (memos.length === 0) {
       return console.log("メモが存在しません。");
     }
-    ensureNotEmpty(memos);
 
     const choices = memos.map((memo) => ({
       name: memo.content.split("\n")[0],
