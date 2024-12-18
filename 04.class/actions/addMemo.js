@@ -21,10 +21,8 @@ export async function addMemo(database) {
     return console.log("メモの内容が空です。");
   }
 
-  const memoContent = contents.join("\n").trim();
-
   try {
-    await database.insertMemo(memoContent);
+    await database.insertMemo(contents.join("\n").trim());
     console.log("メモを追加しました。");
   } catch (err) {
     process.stderr.write(
@@ -36,7 +34,12 @@ export async function addMemo(database) {
 
 function getInputLines(input, output) {
   return new Promise((resolve, reject) => {
-    const rl = createInterface({ input, output, terminal: true });
+    const rl = createInterface({
+      input,
+      output,
+      terminal: input.isTTY ?? false,
+    });
+    console.log(rl.terminal);
     const contents = [];
 
     rl.on("SIGINT", () => {
