@@ -1,5 +1,5 @@
-import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
+import { createInterface } from "readline";
 
 export async function addMemo(database) {
   let contents;

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { MemoDatabase } from "./db/memoDatabase.js";
-import { addMemo } from "./actions/addMemo.js";
+import { DATABASE_PATH, OPTIONS } from "./config/settings.js";
 import { listMemos } from "./actions/listMemos.js";
 import { readMemo } from "./actions/readMemo.js";
 import { deleteMemo } from "./actions/deleteMemo.js";
-import { DATABASE_PATH, OPTIONS } from "./config/settings.js";
+import { addMemo } from "./actions/addMemo.js";
 
 async function main() {
   const memoDatabase = new MemoDatabase(DATABASE_PATH);
