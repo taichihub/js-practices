@@ -8,9 +8,7 @@ import { deleteMemo } from "./actions/deleteMemo.js";
 import { DATABASE_PATH, OPTIONS } from "./config/settings.js";
 
 async function main() {
-  const memoDatabase = new MemoDatabase({
-    databasePath: DATABASE_PATH,
-  });
+  const memoDatabase = new MemoDatabase(DATABASE_PATH);
 
   await memoDatabase.connect();
   const args = process.argv.slice(2);

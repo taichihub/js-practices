@@ -4,7 +4,7 @@ export class MemoDatabase {
   #database;
   #databasePath;
 
-  constructor({ databasePath = "db/memo.db" }) {
+  constructor(databasePath = "db/memo.db") {
     this.#databasePath = databasePath;
   }
 
