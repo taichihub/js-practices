@@ -16,14 +16,14 @@ export async function addMemo(database) {
     process.exit(1);
   }
 
-  const isBlank = lines.every((line) => /^\s*$/.test(line));
+  const isBlank = /^\s*$/.test(lines);
   if (isBlank) {
     console.log("メモの内容が空です。");
     return;
   }
 
   try {
-    await database.insert(lines.join("\n").trim());
+    await database.insert(lines);
     console.log("メモを追加しました。");
   } catch (err) {
     console.error(`メモの保存処理中にエラーが発生しました: "${err.message}`);
@@ -38,7 +38,7 @@ function getInputLines(input) {
       output,
       terminal: input.isTTY ?? false,
     });
-    const lines = [];
+    let lines = [];
 
     rl.on("SIGINT", () => {
       console.log("Ctrl+Cが入力された為メモの作成を中止しました");
@@ -50,6 +50,7 @@ function getInputLines(input) {
     });
 
     rl.on("close", () => {
+      lines = lines.join("\n");
       resolve(lines);
     });
 
