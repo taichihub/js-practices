@@ -2,7 +2,7 @@ import { stdin as input, stdout as output } from "process";
 import { createInterface } from "readline";
 
 export async function addMemo(database) {
-  let contents;
+  let lines;
 
   try {
     if (process.stdin.isTTY) {
@@ -10,20 +10,20 @@ export async function addMemo(database) {
         "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:",
       );
     }
-    contents = await getInputLines(input);
+    lines = await getInputLines(input);
   } catch (err) {
     console.error(`入力中にエラーが発生しました: ${err.message}`);
     process.exit(1);
   }
 
-  const isBlank = contents.every((item) => /^\s*$/.test(item));
+  const isBlank = lines.every((item) => /^\s*$/.test(item));
   if (isBlank) {
     console.log("メモの内容が空です。");
     return;
   }
 
   try {
-    await database.insert(contents.join("\n").trim());
+    await database.insert(lines.join("\n").trim());
     console.log("メモを追加しました。");
   } catch (err) {
     console.error(`メモの保存処理中にエラーが発生しました: "${err.message}`);
