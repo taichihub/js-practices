@@ -2,18 +2,18 @@ import inquirer from "inquirer";
 import { ExitPromptError } from "@inquirer/core";
 
 export async function selectMemo(database, message) {
+  const memos = await database.fetchAll();
+  if (memos.length === 0) {
+    console.log("メモが存在しません。");
+    process.exit(0);
+  }
+
+  const choices = memos.map((memo) => ({
+    name: memo.content.split("\n")[0],
+    value: memo,
+  }));
+
   try {
-    const memos = await database.fetchAll();
-    if (memos.length === 0) {
-      console.log("メモが存在しません。");
-      process.exit(0);
-    }
-
-    const choices = memos.map((memo) => ({
-      name: memo.content.split("\n")[0],
-      value: memo,
-    }));
-
     const answer = await inquirer.prompt([
       {
         type: "list",
