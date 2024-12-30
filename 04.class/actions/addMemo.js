@@ -16,7 +16,7 @@ export async function addMemo(database) {
     process.exit(1);
   }
 
-  const isBlank = lines.every((item) => /^\s*$/.test(item));
+  const isBlank = lines.every((line) => /^\s*$/.test(line));
   if (isBlank) {
     console.log("メモの内容が空です。");
     return;
