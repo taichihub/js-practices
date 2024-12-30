@@ -1,5 +1,5 @@
 export async function listMemos(database) {
-  const memos = await database.fetchAllMemos();
+  const memos = await database.fetchAll();
   if (memos.length === 0) {
     return console.log("メモが存在しません。");
   }

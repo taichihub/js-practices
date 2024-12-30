@@ -28,7 +28,7 @@ export class MemoDatabase {
     }
   }
 
-  insertMemo(content) {
+  insert(content) {
     return new Promise((resolve, reject) => {
       this.#database.run(
         "INSERT INTO memos (content) VALUES (?)",
@@ -44,7 +44,7 @@ export class MemoDatabase {
     });
   }
 
-  fetchAllMemos() {
+  fetchAll() {
     return new Promise((resolve, reject) => {
       this.#database.all(
         "SELECT * FROM memos ORDER BY id DESC",
@@ -59,7 +59,7 @@ export class MemoDatabase {
     });
   }
 
-  deleteMemoById(id) {
+  delete(id) {
     return new Promise((resolve, reject) => {
       this.#database.run("DELETE FROM memos WHERE id = ?", [id], (err) => {
         if (err) {

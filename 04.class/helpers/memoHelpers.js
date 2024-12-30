@@ -3,7 +3,7 @@ import { ExitPromptError } from "@inquirer/core";
 
 export async function selectMemo(database, message) {
   try {
-    const memos = await database.fetchAllMemos();
+    const memos = await database.fetchAll();
     if (memos.length === 0) {
       return console.log("メモが存在しません。");
     }

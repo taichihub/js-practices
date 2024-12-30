@@ -22,7 +22,7 @@ export async function addMemo(database) {
   }
 
   try {
-    await database.insertMemo(contents.join("\n").trim());
+    await database.insert(contents.join("\n").trim());
     console.log("メモを追加しました。");
   } catch (err) {
     process.stderr.write(
