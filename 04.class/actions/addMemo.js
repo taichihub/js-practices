@@ -12,6 +12,10 @@ export async function addMemo(database) {
     }
     lines = await getInputLines(input);
   } catch (err) {
+    if (err.message === "SIGINT") {
+      console.log("Ctrl+Cが入力された為メモの作成を中止しました");
+      process.exit(1);
+    }
     if (err.code == "ENOMEM") {
       throw err;
     }
@@ -42,8 +46,7 @@ function getInputLines(input) {
     let lines = [];
 
     rl.on("SIGINT", () => {
-      console.log("Ctrl+Cが入力された為メモの作成を中止しました");
-      process.exit(0);
+      reject(new Error("SIGINT"));
     });
 
     rl.on("line", (line) => {
