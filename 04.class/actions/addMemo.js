@@ -12,8 +12,9 @@ export async function addMemo(database) {
     }
     lines = await getInputLines(input);
   } catch (err) {
-    console.error(`入力中にエラーが発生しました: ${err.message}`);
-    process.exit(1);
+    if (err.code == "ENOMEM") {
+      throw err;
+    }
   }
 
   const isBlank = /^\s*$/.test(lines);

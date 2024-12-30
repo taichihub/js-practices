@@ -46,8 +46,15 @@ async function main() {
       await deleteMemo(memoDatabase);
       break;
     default:
-      await addMemo(memoDatabase);
-      break;
+      try {
+        await addMemo(memoDatabase);
+        break;
+      } catch (err) {
+        if (err.code === "ENOMEM") {
+          console.error(`システムのメモリ制限を超鹿しました: ${err.message}`);
+          process.exit(1);
+        }
+      }
   }
 }
 
