@@ -5,7 +5,8 @@ export async function selectMemo(database, message) {
   try {
     const memos = await database.fetchAll();
     if (memos.length === 0) {
-      return console.log("メモが存在しません。");
+      console.log("メモが存在しません。");
+      return;
     }
 
     const choices = memos.map((memo) => ({

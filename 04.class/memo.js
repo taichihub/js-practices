@@ -28,7 +28,8 @@ async function main() {
     await memoDatabase.createTable();
   } catch (err) {
     if (err.code === "SQLITE_ERROR") {
-      return console.error(`テーブルを作成できません: ${err.message}`);
+      console.error(`テーブルを作成できません: ${err.message}`);
+      return;
     }
   }
 
