@@ -21,7 +21,7 @@ async function main() {
         console.error(`データベースファイルではありません: ${err.message}`);
         break;
     }
-    return;
+    process.exit(1);
   }
 
   try {
@@ -29,7 +29,7 @@ async function main() {
   } catch (err) {
     if (err.code === "SQLITE_ERROR") {
       console.error(`テーブルを作成できません: ${err.message}`);
-      return;
+      process.exit(1);
     }
   }
 

@@ -12,8 +12,8 @@ export async function addMemo(database) {
     }
     contents = await getInputLines(input);
   } catch (err) {
-    process.stderr.write(`入力中にエラーが発生しました: ${err.message}`);
-    return;
+    console.error(`入力中にエラーが発生しました: ${err.message}`);
+    process.exit(1);
   }
 
   const isBlank = contents.every((item) => /^\s*$/.test(item));
@@ -26,10 +26,8 @@ export async function addMemo(database) {
     await database.insert(contents.join("\n").trim());
     console.log("メモを追加しました。");
   } catch (err) {
-    process.stderr.write(
-      `メモの保存処理中にエラーが発生しました: "${err.message}`,
-    );
-    return;
+    console.error(`メモの保存処理中にエラーが発生しました: "${err.message}`);
+    process.exit(1);
   }
 }
 
