@@ -10,7 +10,28 @@ import { DATABASE_PATH, OPTIONS } from "./config/settings.js";
 async function main() {
   const memoDatabase = new MemoDatabase(DATABASE_PATH);
 
-  await memoDatabase.connect();
+  try {
+    await memoDatabase.connect();
+  } catch (err) {
+    switch (err.code) {
+      case "SQLITE_CANTOPEN":
+        console.error(`データベースを開けません: ${err.message}`);
+        break;
+      case "SQLITE_NOTADB":
+        console.error(`データベースファイルではありません: ${err.message}`);
+        break;
+    }
+    return;
+  }
+
+  try {
+    await memoDatabase.createTable();
+  } catch (err) {
+    if (err.code === "SQLITE_ERROR") {
+      return console.error(`テーブルを作成できません: ${err.message}`);
+    }
+  }
+
   const args = process.argv.slice(2);
 
   switch (args[0]) {
