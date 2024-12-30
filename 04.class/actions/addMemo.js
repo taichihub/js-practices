@@ -10,7 +10,7 @@ export async function addMemo(database) {
         "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:",
       );
     }
-    contents = await getInputLines(input, output);
+    contents = await getInputLines(input);
   } catch (err) {
     process.stderr.write(`入力中にエラーが発生しました: ${err.message}`);
     return;
@@ -33,7 +33,7 @@ export async function addMemo(database) {
   }
 }
 
-function getInputLines(input, output) {
+function getInputLines(input) {
   return new Promise((resolve, reject) => {
     const rl = createInterface({
       input,
