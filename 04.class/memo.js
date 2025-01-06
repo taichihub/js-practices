@@ -52,7 +52,7 @@ async function main() {
         break;
       } catch (err) {
         if (err.code === "ENOMEM") {
-          console.error(`システムのメモリ制限を超鹿しました: ${err.message}`);
+          console.error(`システムのメモリ制限を超過しました: ${err.message}`);
           process.exit(1);
         }
       }
