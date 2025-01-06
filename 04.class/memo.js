@@ -28,8 +28,10 @@ async function main() {
   } catch (err) {
     if (err.code === "SQLITE_ERROR") {
       console.error(`テーブルを作成できません: ${err.message}`);
-      process.exit(1);
+    } else {
+      console.error(`エラーが発生しました: ${err.message}`);
     }
+    process.exit(1);
   }
 
   const args = process.argv.slice(2);
