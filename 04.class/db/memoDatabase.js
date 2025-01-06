@@ -12,9 +12,7 @@ export class MemoDatabase {
     try {
       this.#database = await this.#openDatabase(this.#databasePath);
     } catch (err) {
-      if (err.code === "SQLITE_CANTOPEN" || err.code === "SQLITE_NOTADB") {
-        throw err;
-      }
+      throw err;
     }
   }
 
