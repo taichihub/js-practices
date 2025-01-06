@@ -13,13 +13,12 @@ async function main() {
   try {
     await memoDatabase.connect();
   } catch (err) {
-    switch (err.code) {
-      case "SQLITE_CANTOPEN":
-        console.error(`データベースを開けません: ${err.message}`);
-        break;
-      case "SQLITE_NOTADB":
-        console.error(`データベースファイルではありません: ${err.message}`);
-        break;
+    if (err.code === "SQLITE_CANTOPEN") {
+      console.error(`データベースを開けません: ${err.message}`);
+    } else if (err.code === "SQLITE_NOTADB") {
+      console.error(`データベースファイルではありません: ${err.message}`);
+    } else {
+      console.error(`データベースに接続できません: ${err.message}`);
     }
     process.exit(1);
   }
