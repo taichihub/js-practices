@@ -4,8 +4,7 @@ import { ExitPromptError } from "@inquirer/core";
 export async function selectMemo(database, message) {
   const memos = await database.fetchAll();
   if (memos.length === 0) {
-    console.log("メモが存在しません。");
-    process.exit(0);
+    return null;
   }
 
   const choices = memos.map((memo) => ({
