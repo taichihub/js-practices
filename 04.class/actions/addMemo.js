@@ -2,14 +2,13 @@ import { stdin as input, stdout as output } from "process";
 import { createInterface } from "readline";
 
 export async function addMemo(database) {
-  let lines;
-
   if (process.stdin.isTTY) {
     console.log(
       "メモの内容を入力してください（保存するにはCtrl+Dを押してください）:",
     );
   }
 
+  let lines;
   try {
     lines = await getInputLines(input);
   } catch (err) {
