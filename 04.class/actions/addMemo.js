@@ -43,7 +43,7 @@ function getInputLines(input) {
       output,
       terminal: input.isTTY ?? false,
     });
-    let lines = [];
+    const lines = [];
 
     rl.on("SIGINT", () => {
       reject(new Error("SIGINT"));
@@ -54,8 +54,7 @@ function getInputLines(input) {
     });
 
     rl.on("close", () => {
-      lines = lines.join("\n");
-      resolve(lines);
+      resolve(lines.join("\n"));
     });
 
     rl.on("error", (err) => {
