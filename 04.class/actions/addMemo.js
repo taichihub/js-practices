@@ -1,4 +1,4 @@
-import { stdin as input, stdout as output } from "process";
+import { stdin as input } from "process";
 import { createInterface } from "readline";
 
 export async function addMemo(database) {
@@ -40,8 +40,6 @@ function getInputLines(input) {
   return new Promise((resolve, reject) => {
     const rl = createInterface({
       input,
-      output,
-      terminal: input.isTTY ?? false,
     });
     const lines = [];
 
